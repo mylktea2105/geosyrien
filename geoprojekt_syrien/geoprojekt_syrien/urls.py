@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import django.contrib.auth.views
+from django.conf import settings
+from django.conf.urls.static import static
+
+import geosyrienapp.views
 
 urlpatterns = [
+    path("", geosyrienapp.views.home),
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
