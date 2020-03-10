@@ -91,7 +91,7 @@ DATABASES = {
 }
 
 SERIALIZATION_MODULES = {
-    'geojson':'djgeojson.serializers'
+    'geojson': 'djgeojson.serializers'
 }
 
 # Password validation
@@ -136,11 +136,11 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, 'geosyrienapp/static')
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
-
+"""
 LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (-33.925, 18.625),
+    'DEFAULT_CENTER': (38.508, 35,026),
     'DEFAULT_ZOOM': 10,
     'MAX_ZOOM': 20,
     'MIN_ZOOM': 3,
@@ -151,4 +151,5 @@ LEAFLET_CONFIG = {
                  ('Dams', 'http://server/a/{z}/{x}/{y}.png', {'attribution': '&copy: IGN'})]
 
 }
+"""
 #print("static_root:", STATIC_ROOT)

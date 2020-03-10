@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<!-- {% load leaflet_tags %}
+{% load geojson_tags %} -->
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="description" content="Canvas Flowmap Layer with LeafletJS." />
+
+    <title>Flowmap: Syrische Flüchtlingsbewegung</title>
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3/dist/leaflet.css" /> -->
+    <link rel="stylesheet" href="{% static '/flowmapStatics/leaflet.css' %}" />
+    <link rel="stylesheet" href="{% static '/flowmapStatics/L.Control.Sidebar.css' %}" />
+    <script src="{% static '/flowmapStatics/map.js' %}"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+
+        body > #sidebar {
+            display: none;
+        }
+
+        .legend {
+            width: 10vw;
+            height: 28vh;
+            padding: 6px 10px;
+            fot: 14px/16px Arial, Helvetica, sans-serif;
+            background: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            border-radius: 5px;
+            color: whitesmoke;
+        }
+
+
+        #legendTitle {
+        text-align: center;
+        margin-bottom: 15px;
+        color: whitesmoke;
+        font-weight: bold;
+        }
+
+        .symbolsContainer {
+            float: left;
+            margin-left: 50px;
+        }
+
+        .legendCircle {
+            border-radius: 50%;
+            border: 1px solid #537898;
+            background: rgba(0, 128, 128, 0.5);
+            display: inline-block;
+        }
+
+        .legendValue {
+            position: absolute;
+            right: 12px;
+            color: whitesmoke;
+            font-size: 10pt;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .info {
+            width: 30vw;
+            height: 48vh;
+            padding: 6px 10px;
+            fot: 14px/16px Arial, Helvetica, sans-serif;
+            background: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            border-radius: 5px;
+            color: whitesmoke;
+        }
+
+        .info h6 {
+            margin: 0 0 5px;
+            color: #777;
+            text-align: center;
+            color: whitesmoke;
+            font-weight: bold;
+        }
+
+        .info #horBarChart {
+            width: 100% !important;
+            max-width: 800px;
+        }
+
+        .leaflet-control-layers {
+            float: right;
+            top: 500px;
+            right: 0;
+            position: absolute;
+            background: rgba(255, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            border-radius: 5px;
+            color:whitesmoke
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="sidebar-left">
+        <h1>leaflet-sidebar-Left</h1>
+
+    </div>
+
+    <div id="map"></div>
+
+    <!-- first load LeafletJS -->
+    <!-- <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script> -->
+    <script src="{% static '/flowmapStatics/leaflet.js' %}"></script>
+
+    <!-- load Esri Leaflet because we want to use an Esri basemap -->
+    <!-- <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script> -->
+    <script src="{% static '/flowmapStatics/esri.js' %}"></script>
+
+    <!-- <script src="{% static '/flowmapStatics/leaflet-esri.js' %}"></script> -->
+
+
+    <!-- load animation tweening lib requirement for CanvasFlowMapLayer -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script> -->
+    <script src="{% static '/flowmapStatics/tween.js' %}"></script>
+
+    <!-- then load CanvasFlowMapLayer -->
+    <script src="{% static '/flowmapStatics/CanvasFlowmapLayer.js' %}"></script>
+
+    <!-- also load 3rd-party CSV parsing libary just for this demo  -->
+    <!-- <script src="https://unpkg.com/papaparse@4.3/papaparse.min.js"></script> -->
+    <script src="{% static '/flowmapStatics/papaparse.js' %}"></script>
+
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+
+    <script src="{% static '/js/Chart.js'%}"></script>
+    <script src="{% static '/js/leaflet.ajax.min.js'%}"></script>
+    <script src="{% static '/js/L.Control.Sidebar.js'%}"></script>
+    <script src="{% static '/js/leaflet-button.js'%}"></script>
+
+
+    <script>
+
+
+        // Karte laden
+        var map = L.map('map');
+
+        if (L.Browser.mobile) {
+            map.setView([15, -21.95], 2);
+        } else {
+            map.setView([0, 0], 2);
+        }
+
+        // Layer erstellen und zur Karte hinzufuegen
+        L.esri.basemapLayer('DarkGray').addTo(map);
+
+        // Sidebar erstellen
+
+        var leftSidebar = L.control.sidebar('sidebar-left', {
+            closeButton: true,
+            position: 'left'
+        });
+        map.addControl(leftSidebar);
+
+        map.on('click', function () {
+            leftSidebar.hide();
+        })
+
+        // GeoJSON Dataset laden und als circleMarker visualisieren
+
+        var dataset2018 = new L.GeoJSON.AJAX("{% url 'dataset_2018' %}", {
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    fillcolor: 'teal',
+                    color: '#597898',
+                    weight: 1,
+                    fillOpacity: 0.5,
+                }).on({
+                    mouseover: function(e){
+                        this.setStyle({Color: 'yellow'});
+                    },
+                    mouseout: function(e){
+                        this.setStyle({Color: '#597989'});
+                    },
+                    click: function(e){
+                        leftSidebar.toggle();
+                    }
+                });
+            },
+            // auf jedes Feature eine Funktion anwenden
+            onEachFeature: function(feature, layer){
+                // var radius = calcRadius(feature.properties.refTotal);
+                var radius = 3;
+
+                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
+                                "Fluechtlingszahl: " + feature.properties.refTotal;
+
+                layer.setRadius(radius);
+                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
+            }
+        }).addTo(map);
+
+        // Radiusskalierung berechnen
+        function calcRadius(refTotal){
+            var scaleFactor = 0.002;
+            var area = refTotal * scaleFactor;
+            return Math.sqrt(area/Math.PI)*2;
+        };
+
+        // Dataset nur als JSON parsen (HTTP request)
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = this.responseText;
+                var geojson = JSON.parse(response);
+                // Attribute erweitern sodass sie mit dem Beispiel uebereinstimmen
+                geojson.features.forEach(e => {
+                    e.properties.origin_id = 39;
+                    e.properties.origin_lat = 35.023;
+                    e.properties.origin_lon = 38.5046;
+                    e.properties.dest_id = e.id;
+                    e.properties.dest_lat = e.geometry.coordinates[1];
+                    e.properties.dest_lon = e.geometry.coordinates[0];
+                });
+                console.log(geojson);
+
+                //var flowmap = createFlowmap(geojson,map);
+
+                // LayerGroup erstellen
+                //var layer2018 = L.layerGroup([dataset2018, flowmap]); // input die Layer eines jahres
+                // var 2017 = L.layerGroup([]);
+
+                // Layer Controls
+                //L.control.layers(layer2018).addTo(map);
+                createFlowmap(geojson);
+            }
+        }
+
+        xhttp.open("GET", "{% url 'dataset_2018' %}", true);
+        xhttp.send();
+
+        // Flowmap erstellen und die geladenen JSONs als Input
+        function createFlowmap(geojson) {
+            var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+                        originAndDestinationFieldIds: {
+                            originUniqueIdField: "origin_id",
+                            originGeometry: {
+                                x: "origin_lon",
+                                y: "origin_lat"
+                            },
+                            destinationUniqueIdField: "dest_id",
+                            destinationGeometry: {
+                                x: "dest_lon",
+                                y: "dest_lat"
+                            }
+                        }, // Klassifierungsparameter
+                        canvasBezierStyle: {
+                            type: 'classBreaks',
+                            field: 'refTotal',
+                            classBreakInfos: [{
+                                        classMinValue: 1,
+                                        classMaxValue: 100,
+                                        symbol: {
+                                            strokeStyle: '#FCFBFD',
+                                            lineWidth: 0.2,
+                                            lineCap: 'round',
+                                            shadowColor: '#FCFBFD',
+                                            shadowBlur: 0.2
+                                        }
+                                    }, {
+                                        classMinValue: 101,
+                                        classMaxValue: 500,
+                                        symbol: {
+                                            strokeStyle: '#F7F4F9',
+                                            lineWidth: 0.4,
+                                            lineCap: 'round',
+                                            shadowColor: '#F7F4F9',
+                                            shadowBlur: 0.4
+                                        }
+                                    }, {
+                                        classMinValue: 501,
+                                        classMaxValue: 1000,
+                                        symbol: {
+                                            strokeStyle: '#E7E1EF',
+                                            lineWidth: 0.6,
+                                            lineCap: 'round',
+                                            shadowColor: '#E7E1EF',
+                                            shadowBlur: 0.6
+                                        },
+                                    },{
+                                        classMinValue: 1001,
+                                        classMaxValue: 2500,
+                                        symbol: {
+                                            strokeStyle: '#D4B9DA',
+                                            lineWidth: 0.8,
+                                            lineCap: 'round',
+                                            shadowColor: '#D4B9DA',
+                                            shadowBlur: 0.8
+                                            },
+                                    },{
+                                        classMinValue: 2501,
+                                        classMaxValue: 5000,
+                                        symbol: {
+                                            strokeStyle: '#C994C7',
+                                            lineWidth: 1.0,
+                                            lineCap: 'round',
+                                            shadowColor: '#C994C7',
+                                            shadowBlur: 1.0
+                                            },
+                                    },{
+                                        classMinValue: 5001,
+                                        classMaxValue: 10000,
+                                        symbol: {
+                                            strokeStyle: '#DF65B0',
+                                            lineWidth: 2.2,
+                                            lineCap: 'round',
+                                            shadowColor: '#DF65B0',
+                                            shadowBlur: 2.2
+                                            },
+                                    },{
+                                        classMinValue: 10001,
+                                        classMaxValue: 100000,
+                                        symbol: {
+                                            strokeStyle: '#E7298A',
+                                            lineWidth: 2.4,
+                                            lineCap: 'round',
+                                            shadowColor: '#E7298A',
+                                            shadowBlur: 2.4
+                                            },
+                                    },{
+                                        classMinValue: 100001,
+                                        classMaxValue: 500000,
+                                        symbol: {
+                                            strokeStyle: '#CE1256',
+                                            lineWidth: 2.6,
+                                            lineCap: 'round',
+                                            shadowColor: '#CE1256',
+                                            shadowBlur: 2.6
+                                            },
+                                    },{
+                                        classMinValue: 500001,
+                                        classMaxValue: 1000000,
+                                        symbol: {
+                                            strokeStyle: '#980043',
+                                            lineWidth: 2.8,
+                                            lineCap: 'round',
+                                            shadowColor: '#980043',
+                                            shadowBlur: 2.8
+                                            },
+                                    },{
+                                        classMinValue: 1000001,
+                                        classMaxValue: 4000000,
+                                        symbol: {
+                                            strokeStyle: '#67001F',
+                                            lineWidth: 3.0,
+                                            lineCap: 'round',
+                                            shadowColor: '#67001F',
+                                            shadowBlur: 3.0
+                                            }
+                                    },
+                                    ],
+                                    defaultSymbol: {
+                                    strokeStyle: '#e7e1ef',
+                                        lineWidth: 0.1,
+                                        lineCap: 'round',
+                                        shadowColor: '#e7e1ef',
+                                        shadowBlur: 0.1
+                                        },
+                                    },
+
+                        pathDisplayMode: 'selection',
+                        animationStarted: true,
+                        animationEasingFamily: 'Cubic',
+                        animationEasingType: 'In',
+                        animationDuration: 2000
+                    }).addTo(map);
+
+                        // console.log(oneToManyFlowmapLayer);
+                        oneToManyFlowmapLayer.on('click', function(e) {
+                            if (e.sharedOriginFeatures.length) {
+                                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                                }
+                            if (e.sharedDestinationFeatures.length) {
+                                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                                }
+                            });
+                            // immediately select an origin point for Bezier path display,
+                            // instead of waiting for the first user click event to fire
+                            oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+
+                }
+
+
+        // Legende erstellen
+
+        createLegend();
+
+        function createLegend() {
+            var legend = L.control({position: 'bottomright'});
+            legend.onAdd = function(map) {
+                var legendContainer = L.DomUtil.create('div', 'legend');
+
+                var symbolsContainer = L.DomUtil.create('div', 'symbolsContainer');
+
+                var classes = [4, 10, 20];
+
+                var legendCircle;
+
+                var lastRadius = 0;
+
+                var margin;
+
+                $(legendContainer).append("<h6 id='legendTitle'>Flüchtling</h6>");
+
+                for (var i = 0; i <= classes.length-1; i++) {
+                    legendCircle = L.DomUtil.create("div", "legendCircle");
+
+                    currentRadius = calcRadius(classes[i]);
+
+                    margin = - currentRadius - lastRadius - 2;
+
+                    $(legendCircle).attr("style", "width" + currentRadius*2 +
+                                        "px; height: " + currentRadius*2 +
+                                        "px; margin-left" + margin + "px");
+
+                    if (classes[i] == 20) {
+                        $(legendCircle).append("<span class='legendValue'>" + "11 - " + classes[i] + "+" + "</span>");
+                    } else if (classes[i] == 10) {
+                        $(legendCircle).append("<span class='legendValue'>" + "5 - " + classes[i] + "+" + "</span>");
+                    } else if (classes[i] == 4) {
+                        $(legendCircle).append("<span class='legendValue'>" + "0 - " + classes[i] + "+" + "</span>");
+                    }
+
+                    $(symbolsContainer).append(legendCircle);
+
+                    lastRadius = currentRadius;
+
+                }
+
+                $(legendContainer).append(symbolsContainer);
+
+                return legendContainer;
+            };
+            legend.addTo(map);
+        }
+        // Diagramm erstellen
+
+        barChartLegend();
+
+        function barChartLegend() {
+            var info = L.control({position: 'topright'});
+            info.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'info');
+                div.innerHTML += '<h6> Top 10 Asyl-Länder </h6>';
+                div.innerHTML += '<canvas id="horBarChart"></canvas>';
+
+                return div;
+            };
+
+            info.addTo(map);
+        }
+
+        displayHorBarChart();
+
+        function displayHorBarChart() {
+
+            var x_labels = [];
+            var y_data = [];
+
+            $.ajax({
+                url: "/top10_ref2018",
+                cache: "false",
+                dataType: "text",
+                data: "GET",
+
+                success: function(data) {
+                    var obj = JSON.parse(data);
+
+                    obj.forEach(o => {
+                        x_labels.push(o.land);
+                    });
+
+                    var label_array = Object.values(x_labels);
+
+                    obj.forEach(o => {
+                        y_data.push(o.refTotal);
+                    });
+
+                    var data_array = Object.values(y_data);
+
+                    var ctx = document.getElementById("horBarChart").getContext("2d");
+                    var canvas = document.getElementById("horBarChart");
+                    var parent = document.getElementById("info");
+
+                    var horBarChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: label_array,
+                            datasets: [{
+                                label: 'Fluechtlingszahl',
+                                backgroundColor: "rgba(0, 128, 128, 0.6)",
+                                borderColor: "rgba(0, 128, 128, 1)",
+                                data: data_array
+                            }]
+                        },
+
+                        options: {
+                            scaleShowValues: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        autoSkip: false,
+                                        beginAtZero: true,
+
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                },
+
+                error: function(data) {
+                    alert('error; '+ eval(error));
+                }
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -11,13 +11,16 @@ from geosyrienapp.models import refugees2011, refugees2012, refugees2013, refuge
 
 # Register your models here.
 
-# Fuellen der im models.py erstellten Tabelle 
+# Fuellen der im models.py erstellten Tabelle
+
 
 class WaterConsumptionAdmin(LeafletGeoAdmin):
     pass
 
+
 class refAdmin(LeafletGeoAdmin):
     pass
+
 
 admin.site.register(WaterConsumption, WaterConsumptionAdmin)
 admin.site.register(refugees2011, refAdmin)
