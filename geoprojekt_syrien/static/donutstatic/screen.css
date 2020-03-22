@@ -1,0 +1,45 @@
+.leaflet-control-layers-expanded {
+  color: white;
+	background-color: #888283;
+	font: 16px/18px Arial, Helvetica, sans-serif;
+}
+
+	
+#map {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0; 
+	left: 0;
+}
+#sidebar{
+	font: 18px/20px Arial, Helvetica, sans-serif;
+	color: #777;
+}
+#sidebar1{
+	font: 18px/20px Arial, Helvetica, sans-serif;
+	color: #777;
+}
+
+#progress {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    left: 400px;
+    top: 300px;
+    width: 200px;
+    height: 20px;
+    margin-top: -20px;
+    margin-left: -100px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+#progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #76A6FC;
+    border-radius: 4px;
+}

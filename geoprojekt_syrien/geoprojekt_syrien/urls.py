@@ -25,6 +25,8 @@ from geosyrienapp.views import *
 urlpatterns = [
     path("", geosyrienapp.views.home),
     path("flowmap/", geosyrienapp.views.flowmap, name='flowmap'),
+    path("densitymap/", geosyrienapp.views.densitymap, name='mapOfDensity'),
+    path("conflictmap/", geosyrienapp.views.conflictmap, name='conflictmap'),
     path("layout/", geosyrienapp.views.layout, name='layout'),
     path("dataset_2011/", dataset_2011, name='dataset_2011'),
     path("dataset_2012/", dataset_2012, name='dataset_2012'),

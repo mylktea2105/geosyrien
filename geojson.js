@@ -1,4 +1,4 @@
-{
+var nationData = {
     "type": "Feature",
     "properties": {
         "s_ID": 033,
