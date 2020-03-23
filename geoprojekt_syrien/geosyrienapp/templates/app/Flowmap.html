@@ -34,6 +34,17 @@
             display: none;
         }
 
+        .leaflet-control-layers-expanded {
+          color: white;
+        	background-color: #888283;
+        	font: 16px/18px Arial, Helvetica, sans-serif;
+        }
+
+        #sidebar-left{
+            font: 18px/20px Arial, Helvetica, sans-serif;
+            color: #777;
+        }
+
         .legend {
             width: 10vw;
             height: 28vh;
@@ -98,8 +109,8 @@
             max-width: 800px;
         }
 
-        .leaflet-control-layers {
-            float: right;
+        /* .leaflet-control-layers {
+            float: left;
             top: 500px;
             right: 0;
             position: absolute;
@@ -107,15 +118,41 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             color:whitesmoke
-        }
+        } */
     </style>
 
 </head>
 
 <body>
     <div id="sidebar-left">
-        <h1>leaflet-sidebar-Left</h1>
+        <h1>Information*</h1>
+        <p>*Quelle: EUROSTAT </p>
+        <br>
 
+        <b>Land:</b>
+        <div class="landCont"></div>
+        <b>Gesamtbevölkerung:</b>
+        <div class="populationCont"></div>
+        <b>Registrierte Gesamtzahl der Flüchtlinge:</b>
+        <div class="refTotalCont"></div>
+        <b>Männlich:</b>
+        <div class="maleCont"></div>
+        <b>Weiblich:</b>
+        <div class="femaleCont"></div>
+        <b>Kinder unter 18:</b>
+        <div class="childrenCont"></div>
+        <b>Erwachsene unter 34:</b>
+        <div class="adult34Cont"></div>
+        <b>Erwachsene unter 64:</b>
+        <div class="adult64Cont"></div>
+        <b>Rentner:</b>
+        <div class="rentnerCont"></div>
+        <b>Unbekant:</b>
+        <div class="unbekanntCont"></div>
+        <b>Erstanträge gesamt:</b>
+        <div class="erstantragCont"></div>
+        <b>Folgeanträge gesamt:</b>
+        <div class="folgeantragCont"></div>
     </div>
 
     <div id="map"></div>
@@ -173,290 +210,67 @@
         });
         map.addControl(leftSidebar);
 
-        map.on('click', function () {
-            leftSidebar.hide();
-        })
-
         // GeoJSON Dataset laden und als circleMarker visualisieren
 
         var geojsonDataset = [];
         var baseLayers = {};
+        var years = ["2011","2012","2013","2014","2015","2016","2017","2018"]
+        let i = 0;
+        // for ( i = 0; i < years.length; i++) {
+        //     var year = years[i]
+        //     geojsonDataset[i] = new L.GeoJSON.AJAX("{% url 'dataset_2011' %}".replace(/\d{4}/,year) , {
+        //         pointToLayer: function(feature, latlng) {
+        //             return L.circleMarker(latlng, {
+        //                 fillcolor: 'teal',
+        //                 color: '#597898',
+        //                 weight: 1,
+        //                 fillOpacity: 0.5,
+        //             }).on({
+        //                 mouseover: function(e){
+        //                     this.setStyle({Color: 'yellow'});
+        //                 },
+        //                 mouseout: function(e){
+        //                     this.setStyle({Color: '#597989'});
+        //                 },
+        //                 click: function(e){
+        //                     leftSidebar.toggle();
+        //                 }
+        //             });
+        //         },
+        //         // auf jedes Feature eine Funktion anwenden
+        //         onEachFeature: function(feature, layer){
+        //             // var radius = calcRadius(feature.properties.refTotal);
+        //             var radius = 3;
+        //
+        //             layer.setRadius(radius);
+        //
+        //             // Sidebar mit Daten füllen (jquery)
+        //             layer.on('click', function(e) {
+        //                 $('.landCont').html(feature.properties.land);
+        //                 $('.populationCont').html(feature.properties.pop);
+        //                 $('.refTotalCont').html(feature.properties.refTotal);
+        //                 $('.maleCont').html(feature.properties.male);
+        //                 $('.femaleCont').html(feature.properties.female);
+        //                 $('.childrenCont').html(feature.properties.u18);
+        //                 $('.adult34Cont').html(feature.properties.u34);
+        //                 $('.adult64Cont').html(feature.properties.u64);
+        //                 $('.rentnerCont').html(feature.properties.ue65);
+        //                 $('.unknownCont').html(feature.properties.unknown);
+        //                 $('.erstantragCont').html(feature.properties.erstantrag);
+        //                 $('.folgeantragCont').html(feature.properties.folgeantrag);
+        //
+        //             });
+        //         }
+        //     });
+        //     baseLayers[year] = geojsonDataset[i]
+            console.log(baseLayers);
+        // }
 
-        // 2011
-        geojsonDataset[0] = new L.GeoJSON.AJAX("{% url 'dataset_2011' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2011"] = geojsonDataset[0]
-
-        // 2012
-        geojsonDataset[1] = new L.GeoJSON.AJAX("{% url 'dataset_2012' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2012"] = geojsonDataset[1]
-
-        // 2013
-        geojsonDataset[2] = new L.GeoJSON.AJAX("{% url 'dataset_2013' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2013"] = geojsonDataset[2]
-
-        // 2014
-        geojsonDataset[3] = new L.GeoJSON.AJAX("{% url 'dataset_2014' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2014"] = geojsonDataset[3]
-
-        // 2015
-        geojsonDataset[4] = new L.GeoJSON.AJAX("{% url 'dataset_2015' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2015"] = geojsonDataset[4]
-
-        // 2016
-        geojsonDataset[5] = new L.GeoJSON.AJAX("{% url 'dataset_2016' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2016"] = geojsonDataset[5]
-
-        // 2017
-        geojsonDataset[6] = new L.GeoJSON.AJAX("{% url 'dataset_2017' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2017"] = geojsonDataset[6]
-
-        // 2018
-        geojsonDataset[7] = new L.GeoJSON.AJAX("{% url 'dataset_2018' %}" , {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    fillcolor: 'teal',
-                    color: '#597898',
-                    weight: 1,
-                    fillOpacity: 0.5,
-                }).on({
-                    mouseover: function(e){
-                        this.setStyle({Color: 'yellow'});
-                    },
-                    mouseout: function(e){
-                        this.setStyle({Color: '#597989'});
-                    },
-                    click: function(e){
-                        leftSidebar.toggle();
-                    }
-                });
-            },
-            // auf jedes Feature eine Funktion anwenden
-            onEachFeature: function(feature, layer){
-                // var radius = calcRadius(feature.properties.refTotal);
-                var radius = 3;
-
-                var popupText = "<strong>" + feature.properties.land + "</strong>" + "<br>"+
-                                "Fluechtlingszahl: " + feature.properties.refTotal;
-
-                layer.setRadius(radius);
-                layer.bindPopup(popupText, {offset: new L.Point(0, -radius) });
-            }
-        });
-        baseLayers["2018"] = geojsonDataset[7]
 
         L.control.layers(baseLayers).addTo(map)
 
         // Radiusskalierung berechnen
+
         function calcRadius(refTotal){
             var scaleFactor = 0.002;
             var area = refTotal * scaleFactor;
@@ -482,8 +296,7 @@
                 createFlowmap(geojson);
             }
         }
-
-        xhttp.open("GET", "{% url 'dataset_2014' %}", true);
+        xhttp.open("GET", "{% url 'dataset_2014' %}", true)
         xhttp.send();
 
         // Flowmap erstellen und die geladenen JSONs als Input
@@ -500,7 +313,34 @@
                                 x: "dest_lon",
                                 y: "dest_lat"
                             }
-                        }, // Klassifierungsparameter
+                        },
+                        // style: function(geojson) {
+                          // use leaflet's path styling options
+
+                          // since the GeoJSON feature properties are modified by the layer,
+                          // developers can rely on the "isOrigin" property to set different
+                          // symbols for origin vs destination CircleMarker stylings
+                      //     if (geojson.properties.isOrigin) {
+                      //       return {
+                      //         renderer: L.canvas(), // recommended to use your own L.canvas()
+                      //         radius: 5,
+                      //         weight: 1,
+                      //         color: 'rgb(195, 0, 62)',
+                      //         fillColor: 'rgba(195, 0, 62, 0.6)',
+                      //         fillOpacity: 0.6
+                      //     };
+                      //     } else {
+                      //       return {
+                      //         renderer: L.canvas(),
+                      //         radius: 3,
+                      //         weight: 0.25,
+                      //         color: 'rgb(17, 142, 170)',
+                      //         fillColor: 'rgb(17, 142, 170)',
+                      //         fillOpacity: 0.7
+                      //       };
+                      //     }
+                      // },
+                        // Klassifierungsparameter
                         canvasBezierStyle: {
                             type: 'classBreaks',
                             field: 'refTotal',
@@ -619,10 +459,52 @@
                         animationStarted: true,
                         animationEasingFamily: 'Cubic',
                         animationEasingType: 'In',
-                        animationDuration: 2000
+                        animationDuration: 2000,
+
+                        pointToLayer: function(feature, latlng) {
+                            return L.circleMarker(latlng, {
+                                fillcolor: 'teal',
+                                color: '#597898',
+                                weight: 1,
+                                fillOpacity: 0.5,
+                            }).on({
+                                mouseover: function(e){
+                                    this.setStyle({Color: 'yellow'});
+                                },
+                                mouseout: function(e){
+                                    this.setStyle({Color: '#597989'});
+                                },
+                                click: function(e){
+                                    leftSidebar.toggle();
+                                }
+                            });
+                        },
+                        onEachFeature: function(feature, layer){
+                            // var radius = calcRadius(feature.properties.refTotal);
+                            var radius = 3;
+
+                            layer.setRadius(radius);
+
+                            // Sidebar mit Daten füllen (jquery)
+                            layer.on('click', function(e) {
+                                $('.landCont').html(feature.properties.land);
+                                $('.populationCont').html(feature.properties.pop);
+                                $('.refTotalCont').html(feature.properties.refTotal);
+                                $('.maleCont').html(feature.properties.male);
+                                $('.femaleCont').html(feature.properties.female);
+                                $('.childrenCont').html(feature.properties.u18);
+                                $('.adult34Cont').html(feature.properties.u34);
+                                $('.adult64Cont').html(feature.properties.u64);
+                                $('.rentnerCont').html(feature.properties.ue65);
+                                $('.unknownCont').html(feature.properties.unknown);
+                                $('.erstantragCont').html(feature.properties.erstantrag);
+                                $('.folgeantragCont').html(feature.properties.folgeantrag);
+
+                            });
+                        }
                     }).addTo(map);
 
-                        // console.log(oneToManyFlowmapLayer);
+
                         oneToManyFlowmapLayer.on('click', function(e) {
                             if (e.sharedOriginFeatures.length) {
                                 oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
@@ -635,7 +517,7 @@
                             // instead of waiting for the first user click event to fire
                             oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
-                }
+                };
 
 
         // Legende erstellen
@@ -688,7 +570,7 @@
 
                 return legendContainer;
             };
-            legend.addTo(map);
+            //legend.addTo(map);
         }
         // Diagramm erstellen
 
