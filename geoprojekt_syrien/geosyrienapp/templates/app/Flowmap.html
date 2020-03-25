@@ -212,10 +212,6 @@
 
         // GeoJSON Dataset laden und als circleMarker visualisieren
 
-        var geojsonDataset = [];
-        var baseLayers = {};
-        var years = ["2011","2012","2013","2014","2015","2016","2017","2018"]
-        let i = 0;
         // for ( i = 0; i < years.length; i++) {
         //     var year = years[i]
         //     geojsonDataset[i] = new L.GeoJSON.AJAX("{% url 'dataset_2011' %}".replace(/\d{4}/,year) , {
@@ -266,9 +262,6 @@
             console.log(baseLayers);
         // }
 
-
-        L.control.layers(baseLayers).addTo(map)
-
         // Radiusskalierung berechnen
 
         function calcRadius(refTotal){
@@ -277,12 +270,22 @@
             return Math.sqrt(area/Math.PI)*2;
         };
 
-        // Dataset nur als JSON parsen (HTTP request)
-        xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        var oneToManyFlowmapLayer = [];
+        var baseLayers = {};
+        var years = ["2011","2012","2013","2014","2015","2016","2017","2018"]
+        let i = 0;
+
+        for ( i = 0; i < years.length; i++) {
+        console.log(i)
+
+            var year = years[i]
+
+            xhttp = new XMLHttpRequest();
+             xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
                 var response = this.responseText;
                 var geojson = JSON.parse(response);
+
                 // Attribute erweitern sodass sie mit dem Beispiel uebereinstimmen
                 geojson.features.forEach(e => {
                     e.properties.origin_id = 39;
@@ -296,12 +299,20 @@
                 createFlowmap(geojson);
             }
         }
-        xhttp.open("GET", "{% url 'dataset_2014' %}", true)
+
+        xhttp.open("GET", "{% url 'dataset_2011'%}".replace(/\d{4}/,year), true);
         xhttp.send();
+        };
+
 
         // Flowmap erstellen und die geladenen JSONs als Input
+        var lay = 0;
         function createFlowmap(geojson) {
-            var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+            if (lay == 7){
+               lay = 0;
+            }
+            console.log(lay)
+            oneToManyFlowmapLayer[lay] = L.canvasFlowmapLayer(geojson, {
                         originAndDestinationFieldIds: {
                             originUniqueIdField: "origin_id",
                             originGeometry: {
@@ -314,32 +325,6 @@
                                 y: "dest_lat"
                             }
                         },
-                        // style: function(geojson) {
-                          // use leaflet's path styling options
-
-                          // since the GeoJSON feature properties are modified by the layer,
-                          // developers can rely on the "isOrigin" property to set different
-                          // symbols for origin vs destination CircleMarker stylings
-                      //     if (geojson.properties.isOrigin) {
-                      //       return {
-                      //         renderer: L.canvas(), // recommended to use your own L.canvas()
-                      //         radius: 5,
-                      //         weight: 1,
-                      //         color: 'rgb(195, 0, 62)',
-                      //         fillColor: 'rgba(195, 0, 62, 0.6)',
-                      //         fillOpacity: 0.6
-                      //     };
-                      //     } else {
-                      //       return {
-                      //         renderer: L.canvas(),
-                      //         radius: 3,
-                      //         weight: 0.25,
-                      //         color: 'rgb(17, 142, 170)',
-                      //         fillColor: 'rgb(17, 142, 170)',
-                      //         fillOpacity: 0.7
-                      //       };
-                      //     }
-                      // },
                         // Klassifierungsparameter
                         canvasBezierStyle: {
                             type: 'classBreaks',
@@ -454,7 +439,6 @@
                                         shadowBlur: 0.1
                                         },
                                     },
-
                         pathDisplayMode: 'selection',
                         animationStarted: true,
                         animationEasingFamily: 'Cubic',
@@ -502,23 +486,31 @@
 
                             });
                         }
+
+
                     }).addTo(map);
+                        oneToManyFlowmapLayer[lay].on('click', function(e) {
 
-
-                        oneToManyFlowmapLayer.on('click', function(e) {
                             if (e.sharedOriginFeatures.length) {
-                                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                                oneToManyFlowmapLayer[lay].selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                                 }
                             if (e.sharedDestinationFeatures.length) {
-                                oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                                oneToManyFlowmapLayer[lay].selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                                 }
                             });
                             // immediately select an origin point for Bezier path display,
                             // instead of waiting for the first user click event to fire
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer[lay].selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
+                            baseLayers[years[lay]]= oneToManyFlowmapLayer[lay]
+                            lay++
+                if (lay ==7) {
+                L.control.layers(baseLayers).addTo(map)
+                }
                 };
+                                console.log("baselayers")
 
+                console.log(baseLayers)
 
         // Legende erstellen
 
