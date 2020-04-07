@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- {% load leaflet_tags %}
-{% load geojson_tags %} -->
 {% load static %}
 
 <head>
@@ -30,9 +28,9 @@
             left: 0;
         }
 
-        body > #sidebar {
+        /* body > #sidebar {
             display: none;
-        }
+        } */
 
         .leaflet-control-layers-expanded {
           color: white;
@@ -55,7 +53,6 @@
             border-radius: 5px;
             color: whitesmoke;
         }
-
 
         #legendTitle {
         text-align: center;
@@ -87,9 +84,9 @@
 
         .info {
             width: 30vw;
-            height: 32vh;
+            height: 40vh;
             padding: 6px 10px;
-            fot: 14px/16px Arial, Helvetica, sans-serif;
+            font: 14px/16px Arial, Helvetica, sans-serif;
             background: rgba(0, 0, 0, 0.5);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
@@ -106,15 +103,32 @@
 
         .info #horBarChart {
             width: 100% !important;
-            max-width: 800px;
+            max-width: 1200px;
+        }
+
+        .btn {
+            background-color: transparent;
+            position: relative;
+            border: 1px solid whitesmoke;
+            border-radius: 2px;
+            margin: 5px;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            transition-duration: 0.4s;
+
+        }
+        .btn:hover {
+            background-color: whitesmoke;
+            color: black;
         }
 
         /* .leaflet-control-layers {
-            float: left;
+            float: right;
             top: 500px;
             right: 0;
             position: absolute;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 199, 0, 0.85);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             color:whitesmoke
@@ -210,6 +224,7 @@
         });
         map.addControl(leftSidebar);
 
+
         // GeoJSON Dataset laden und als circleMarker visualisieren als Schleife
 
         // for ( i = 0; i < years.length; i++) {
@@ -270,7 +285,6 @@
             return Math.sqrt(area/Math.PI)*2;
         };
 
-        //var flowmaplayer = []
         var baseLayers = {};
 
             xhttp = new XMLHttpRequest();
@@ -289,8 +303,6 @@
                     e.properties.dest_lon = e.geometry.coordinates[0];
                 });
                     createFlowmap(geojson);
-                    displayHorBarChart();
-
             }
 
         }
@@ -711,8 +723,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap2(geojson);
-                displayHorBarChart2();
-
         }
 
         }
@@ -924,8 +934,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap3(geojson);
-                displayHorBarChart3();
-
         }
 
         }
@@ -1135,8 +1143,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap4(geojson);
-                displayHorBarChart4();
-
         }
 
         }
@@ -1347,8 +1353,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap5(geojson);
-                displayHorBarChart5();
-
         }
 
         }
@@ -1559,8 +1563,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap6(geojson);
-                displayHorBarChart6();
-
         }
 
         }
@@ -1770,8 +1772,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap7(geojson);
-                displayHorBarChart7();
-
         }
 
         }
@@ -1969,10 +1969,6 @@
         L.control.layers(baseLayers).addTo(map)
             }, 2000)
 
-
-
-                //console.log(baseLayers)
-
         // Legende erstellen
 
         createLegend();
@@ -2023,9 +2019,11 @@
 
                 return legendContainer;
             };
-            //legend.addTo(map);
+            legend.addTo(map);
         }
-        // Diagramm erstellen
+
+
+        //Diagrammcontainer erstellen
 
         barChartLegend();
 
@@ -2035,6 +2033,14 @@
                 var div = L.DomUtil.create('div', 'info');
                 div.innerHTML += '<h6> Top 10 Asyl-Länder </h6>';
                 div.innerHTML += '<canvas id="horBarChart"></canvas>';
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart1()">2012</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart2()">2013</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart3()">2014</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart4()">2015</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart5()">2016</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart6()">2017</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart7()">2018</button>'
 
                 return div;
             };
@@ -2042,14 +2048,21 @@
             info.addTo(map);
         }
 
+
+        // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
+        var horBarChart;
+
         function displayHorBarChart() {
 
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2011",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2072,38 +2085,39 @@
                     var canvas = document.getElementById("horBarChart");
                     var parent = document.getElementById("info");
 
-                    var horBarChart = new Chart(ctx, {
-                        type: 'horizontalBar',
-                        data: {
-                            labels: label_array,
-                            datasets: [{
-                                label: 'Fluechtlingszahl',
-                                backgroundColor: "rgba(0, 128, 128, 0.6)",
-                                borderColor: "rgba(0, 128, 128, 1)",
-                                data: data_array
+
+                horBarChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: label_array,
+                        datasets: [{
+                            label: 'Fluechtlingszahl',
+                            backgroundColor: "rgba(0, 128, 128, 0.6)",
+                            borderColor: "rgba(0, 128, 128, 1)",
+                            data: data_array
+                        }]
+                    },
+
+                    options: {
+                        scaleShowValues: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false,
+                                    beginAtZero: true,
+
+                                }
                             }]
-                        },
-
-                        options: {
-                            scaleShowValues: true,
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true,
-                                    }
-                                }],
-                                xAxes: [{
-                                    ticks: {
-                                        autoSkip: false,
-                                        beginAtZero: true,
-
-                                    }
-                                }]
-                            }
                         }
-                    });
-                },
-
+                    }
+                });
+                horBarChart.update();
+            },
                 error: function(data) {
                     alert('error; '+ eval(error));
                 }
@@ -2115,9 +2129,14 @@
             var x_labels = [];
             var y_data = [];
 
+
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
+
             $.ajax({
                 url: "/top10_ref2012",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2140,7 +2159,7 @@
                     var canvas = document.getElementById("horBarChart");
                     var parent = document.getElementById("info");
 
-                    var horBarChart = new Chart(ctx, {
+                    horBarChart = new Chart(ctx, {
                         type: 'horizontalBar',
                         data: {
                             labels: label_array,
@@ -2170,6 +2189,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2183,9 +2203,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2013",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2238,6 +2261,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2251,9 +2275,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2014",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2306,6 +2333,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2319,9 +2347,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2015",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2374,6 +2405,7 @@
                             }
                         }
                     });
+                horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2387,9 +2419,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2016",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2442,6 +2477,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2455,9 +2491,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2017",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2510,6 +2549,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2523,9 +2563,12 @@
             var x_labels = [];
             var y_data = [];
 
+            $('#horBarChart').remove();
+            $('.info').append('<canvas id="horBarChart"></canvas>');
+
             $.ajax({
                 url: "/top10_ref2018",
-                cache: "true",
+                cache: "false",
                 dataType: "text",
                 data: "GET",
 
@@ -2578,6 +2621,7 @@
                             }
                         }
                     });
+                    horBarChart.update();
                 },
 
                 error: function(data) {
@@ -2585,12 +2629,6 @@
                 }
             });
         }
-
-
-
-
-
-
 
     </script>
 
