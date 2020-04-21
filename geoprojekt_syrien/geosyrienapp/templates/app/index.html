@@ -60,7 +60,7 @@
           <nav class="site-navigation text-center " role="navigation">
 
             <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block mb-0">
-              <li><a href="map">Visualisierung</a></li>
+              <li><a href="#index">Visualisierung</a></li>
               <li><a href="#konflikt">Konfliktparteien</a></li>
               <li><a href="#chronik">Chronik des Bürgerkriegs</a></li>
               <li><a href="#daten">Datensammlung</a></li>
@@ -128,7 +128,9 @@
               </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
+                  <a href="{% url 'conflictmap' %}"
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+              </a>
                 </div>
               </div>
             </div>
@@ -148,7 +150,9 @@
               </p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <a href="{% url 'mapOfDensity' %}"
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                </a>
                 </div>
               </div>
             </div>
