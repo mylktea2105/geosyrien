@@ -28,54 +28,74 @@
             left: 0;
         }
 
-        /* body > #sidebar {
-            display: none;
-        } */
-
-        .leaflet-control-layers-expanded {
-          color: white;
-        	background-color: #888283;
-        	font: 16px/18px Arial, Helvetica, sans-serif;
-        }
-
         #sidebar-left{
             font: 18px/20px Arial, Helvetica, sans-serif;
             color: #777;
         }
 
-        .legend {
+        /* .legend {
             width: 10vw;
-            height: 28vh;
+            height: 32vh;
+            margin-right: 8px;
             padding: 6px 10px;
-            fot: 14px/16px Arial, Helvetica, sans-serif;
+            font: 14px/16px Arial, Helvetica, sans-serif;
             background: rgba(0, 0, 0, 0.5);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             color: whitesmoke;
+        } */
+
+        .legend {
+            text-align: left;
+            margin-right: 8px;
+            line-height: 18px;
+            color: whitesmoke;
+            padding: 6px 10px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+
+        }
+
+        .legend j {
+            border-radius: 50%;
+            max-height: auto;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
         }
 
         #legendTitle {
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 1px;
         color: whitesmoke;
         font-weight: bold;
         }
 
+        #legendDesc {
+            text-align: center;
+            margin-bottom: 3px;
+            color: whitesmoke;
+            font-weight: bold;
+        }
+
         .symbolsContainer {
             float: left;
-            margin-left: 50px;
+            margin-left: 30px;
         }
 
         .legendCircle {
             border-radius: 50%;
-            border: 1px solid #537898;
-            background: rgba(0, 128, 128, 0.5);
+            opacity: 0.7;
             display: inline-block;
+            margin-bottom: 0.2px;
+
         }
 
         .legendValue {
             position: absolute;
-            right: 12px;
+            right: 10px;
             color: whitesmoke;
             font-size: 10pt;
             text-align: center;
@@ -83,7 +103,7 @@
         }
 
         .info {
-            width: 30vw;
+            width: 32vw;
             height: 40vh;
             padding: 6px 10px;
             font: 14px/16px Arial, Helvetica, sans-serif;
@@ -93,8 +113,10 @@
             color: whitesmoke;
         }
 
-        .info h6 {
+        .info h4 {
             margin: 0 0 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             color: #777;
             text-align: center;
             color: whitesmoke;
@@ -123,16 +145,18 @@
             color: black;
         }
 
-        /* .leaflet-control-layers {
-            float: right;
-            top: 500px;
-            right: 0;
-            position: absolute;
-            background: rgba(0, 199, 0, 0.85);
+        .leaflet-control-layers {
+            /* background: rgba(136, 16, 0, 0.85); */
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             color:whitesmoke
-        } */
+        }
+
+        .leaflet-control-layers-expanded {
+            color: white;
+            background-color: #888283;
+            font: 16px/18px Arial, Helvetica, sans-serif;
+        }
     </style>
 
 </head>
@@ -285,6 +309,78 @@
             return Math.sqrt(area/Math.PI)*2;
         };
 
+        function getRadius(d) {
+            return  d >= 1000000 ? 18 :
+                    d >= 500000 ? 16 :
+                    d >= 100000 ? 14 :
+                    d >= 10000 ? 12 :
+                    d >= 5000 ? 10 :
+                    d >= 2500 ? 8 :
+                    d >= 1000 ? 6 :
+                    d >= 500 ? 4 :
+                    d >= 1 ? 2 :
+                    d = 0 ? 0:
+                    d = 'noData' ? 0 :
+                            0 ;
+
+        }
+
+        function getColor(f){
+        //     return  f > 1000001 ? '#7f0000' :
+        //             f > 500001 ? '#b30000' :
+        //             f > 100001 ? '#d7301f' :
+        //             f > 10001 ? '#ef6548' :
+        //             f > 5001 ? '#fc8d59' :
+        //             f > 2501 ? '#fdbb84' :
+        //             f > 1001 ? '#fdd49e' :
+        //             f > 501 ? '#E7E1EF' :
+        //             f > 1 ? '#F7F4F9' :
+        //             f = 'noData' ? '#00000000' :
+        //                     '#00000000' ;
+        // }
+
+                //Farbschema 2
+                return  f >= 1000000 ? '#7f0000' :
+                        f >= 500000 ? '#b30000' :
+                        f >= 100000 ? '#d7301f' :
+                        f >= 10000 ? '#ef6548' :
+                        f >= 5000 ? '#fc8d59' :
+                        f >= 2500 ? '#fdbb84' :
+                        f >= 1000 ? '#fdd49e' :
+                        f >= 500 ? '#fee8c8' :
+                        f >= 1 ? '#fff7ec' :
+                        f = 0 ? '#00000000':
+                        f = 'noData' ? '#00000000' :
+                                '#00000000' ;
+            }
+            //     //Farbschema 3 nicht
+            //     return  f > 1000001 ? '#67000d' :
+            //             f > 500001 ? '#a50f15' :
+            //             f > 100001 ? '#cb181d' :
+            //             f > 10001 ? '#ef3b2c' :
+            //             f > 5001 ? '#fb6a4a' :
+            //             f > 2501 ? '#fc9272' :
+            //             f > 1001 ? '#fcbba1' :
+            //             f > 501 ? '#fee0d2' :
+            //             f > 1 ? '#fff5f0' :
+            //             f = 'noData' ? '#00000000' :
+            //                     '#00000000' ;
+            // }
+            //     //Farbschema 1 nicht
+            //     return  f > 1000001 ? '#800026' :
+            //             f > 500001 ? '#bd0026' :
+            //             f > 100001 ? '#e31a1c' :
+            //             f > 10001 ? '#fc4e2a' :
+            //             f > 5001 ? '#fd8d3c' :
+            //             f > 2501 ? '#feb24c' :
+            //             f > 1001 ? '#fed976' :
+            //             f > 501 ? '#ffeda0' :
+            //             f > 1 ? '#ffffcc' :
+            //             f = 'noData' ? '#00000000' :
+            //                     '#00000000' ;
+            // }
+
+
         var baseLayers = {};
 
             xhttp = new XMLHttpRequest();
@@ -328,6 +424,28 @@
                                 y: "dest_lat"
                             }
                         },
+
+                        style: function(geojson) {
+                          if (geojson.properties.isOrigin) {
+                            return {
+                              renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                              radius: 5,
+                              weight: 1,
+                              color: 'rgb(195, 255, 62)',
+                              fillColor: 'rgba(195, 255, 62, 0.6)',
+                              fillOpacity: 0.6
+                            };
+                          } else {
+                            return {
+                              renderer: oneToManyFlowmapLayer,
+                              radius: getRadius(geojson.properties.refTotal),
+                              weight: 0.25,
+                              color: getColor(geojson.properties.refTotal),
+                              fillColor: getColor(geojson.properties.refTotal),
+                              fillOpacity: 0.7
+                            };
+                          }
+                        },
                         // Klassifierungsparameter
                         canvasBezierStyle: {
                             type: 'classBreaks',
@@ -336,99 +454,99 @@
                                         classMinValue: 1,
                                         classMaxValue: 500,
                                         symbol: {
-                                            strokeStyle: '#F7F4F9',
+                                            strokeStyle: '#fff7ec',
                                             lineWidth: 0.2,
                                             lineCap: 'round',
-                                            shadowColor: '#F7F4F9',
+                                            shadowColor: '#fff7ec',
                                             shadowBlur: 0.2
                                         }
                                     }, {
                                         classMinValue: 501,
                                         classMaxValue: 1000,
                                         symbol: {
-                                            strokeStyle: '#E7E1EF',
+                                            strokeStyle: '#fee8c8',
                                             lineWidth: 0.4,
                                             lineCap: 'round',
-                                            shadowColor: '#E7E1EF',
+                                            shadowColor: '#fee8c8',
                                             shadowBlur: 0.4
                                         }
                                     }, {
                                         classMinValue: 1001,
                                         classMaxValue: 2500,
                                         symbol: {
-                                            strokeStyle: '#D4B9DA',
+                                            strokeStyle: '#fdd49e',
                                             lineWidth: 0.6,
                                             lineCap: 'round',
-                                            shadowColor: '#D4B9DA',
+                                            shadowColor: '#fdd49e',
                                             shadowBlur: 0.6
                                         },
                                     },{
                                         classMinValue: 2501,
                                         classMaxValue: 5000,
                                         symbol: {
-                                            strokeStyle: '#C994C7',
+                                            strokeStyle: '#fdbb84',
                                             lineWidth: 0.8,
                                             lineCap: 'round',
-                                            shadowColor: '#C994C7',
+                                            shadowColor: '#fdbb84',
                                             shadowBlur: 0.8
                                             },
                                     },{
                                         classMinValue: 5001,
                                         classMaxValue: 10000,
                                         symbol: {
-                                            strokeStyle: '#DF65B0',
+                                            strokeStyle: '#fc8d59',
                                             lineWidth: 1.0,
                                             lineCap: 'round',
-                                            shadowColor: '#DF65B0',
+                                            shadowColor: '#fc8d59',
                                             shadowBlur: 1.0
                                             },
                                     },{
                                         classMinValue: 10001,
                                         classMaxValue: 100000,
                                         symbol: {
-                                            strokeStyle: '#E7298A',
+                                            strokeStyle: '#ef6548',
                                             lineWidth: 2.2,
                                             lineCap: 'round',
-                                            shadowColor: '#E7298A',
+                                            shadowColor: '#ef6548',
                                             shadowBlur: 2.2
                                             },
                                     },{
                                         classMinValue: 100001,
                                         classMaxValue: 500000,
                                         symbol: {
-                                            strokeStyle: '#CE1256',
+                                            strokeStyle: '#d7301f',
                                             lineWidth: 2.4,
                                             lineCap: 'round',
-                                            shadowColor: '#CE1256',
+                                            shadowColor: '#d7301f',
                                             shadowBlur: 2.4
                                             },
                                     },{
                                         classMinValue: 500001,
                                         classMaxValue: 1000000,
                                         symbol: {
-                                            strokeStyle: '#980043',
+                                            strokeStyle: '#b30000',
                                             lineWidth: 2.6,
                                             lineCap: 'round',
-                                            shadowColor: '#980043',
+                                            shadowColor: '#b30000',
                                             shadowBlur: 2.6
                                             },
                                     },{
                                         classMinValue: 1000001,
                                         classMaxValue: 3000000,
                                         symbol: {
-                                            strokeStyle: '#67001F',
+                                            strokeStyle: '#7f0000',
                                             lineWidth: 2.8,
                                             lineCap: 'round',
-                                            shadowColor: '#67001F',
+                                            shadowColor: '#7f0000',
                                             shadowBlur: 2.8
                                             },
                                     },
                                     ],
                                     defaultSymbol: {
-                                    strokeStyle: '#000000',
+                                    strokeStyle: '#00000000',
                                         lineWidth: 0.1,
                                         lineCap: 'round',
-                                        shadowColor: '#000000',
+                                        shadowColor: '#00000000',
                                         shadowBlur: 0.1
                                         },
                                     },
@@ -457,10 +575,11 @@
                             });
                         },
                         onEachFeature: function(feature, layer){
-                            // var radius = calcRadius(feature.properties.refTotal);
-                            var radius = 3;
+                            //var radius = getRadius(feature.properties.refTotal);
+                            //var radius = 3;
 
-                            layer.setRadius(radius);
+                            // layer.setRadius(radius);
+                            // layer.setColor()
 
                             // Sidebar mit Daten füllen (jquery)
                             layer.on('click', function(e) {
@@ -512,7 +631,6 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap1(geojson);
-                displayHorBarChart1();
 
         }
 
@@ -538,6 +656,27 @@
                             x: "dest_lon",
                             y: "dest_lat"
                         }
+                    },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
                     },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
@@ -567,70 +706,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -656,12 +795,6 @@
                             weight: 1,
                             fillOpacity: 0.5,
                         }).on({
-                            mouseover: function(e){
-                                this.setStyle({Color: 'yellow'});
-                            },
-                            mouseout: function(e){
-                                this.setStyle({Color: '#597989'});
-                            },
                             click: function(e){
                                 leftSidebar.toggle();
                             }
@@ -669,9 +802,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -748,6 +881,27 @@
                             y: "dest_lat"
                         }
                     },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
+                    },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
                         type: 'classBreaks',
@@ -776,70 +930,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -878,9 +1032,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -959,6 +1113,27 @@
                             y: "dest_lat"
                         }
                     },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
+                    },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
                         type: 'classBreaks',
@@ -987,70 +1162,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -1089,9 +1264,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -1168,6 +1343,27 @@
                             y: "dest_lat"
                         }
                     },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
+                    },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
                         type: 'classBreaks',
@@ -1196,70 +1392,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -1298,9 +1494,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -1378,6 +1574,27 @@
                             y: "dest_lat"
                         }
                     },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
+                    },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
                         type: 'classBreaks',
@@ -1406,70 +1623,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -1508,9 +1725,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -1588,6 +1805,28 @@
                             y: "dest_lat"
                         }
                     },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
+                    },
+
                     // Klassifierungsparameter
                     canvasBezierStyle: {
                         type: 'classBreaks',
@@ -1616,70 +1855,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -1717,10 +1956,10 @@
                         });
                     },
                     onEachFeature: function(feature, layer){
-                        // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = getRadius(feature.properties.refTotal);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -1772,6 +2011,7 @@
                 e.properties.dest_lon = e.geometry.coordinates[0];
             });
                 createFlowmap7(geojson);
+                displayHorBarChart7();
         }
 
         }
@@ -1796,6 +2036,27 @@
                             x: "dest_lon",
                             y: "dest_lat"
                         }
+                    },
+                    style: function(geojson) {
+                      if (geojson.properties.isOrigin) {
+                        return {
+                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          radius: 5,
+                          weight: 1,
+                          color: 'rgb(195, 255, 62)',
+                          fillColor: 'rgba(195, 255, 62, 0.6)',
+                          fillOpacity: 0.6
+                        };
+                      } else {
+                        return {
+                          renderer: oneToManyFlowmapLayer,
+                          radius: getRadius(geojson.properties.refTotal),
+                          weight: 0.25,
+                          color: getColor(geojson.properties.refTotal),
+                          fillColor: getColor(geojson.properties.refTotal),
+                          fillOpacity: 0.7
+                        };
+                      }
                     },
                     // Klassifierungsparameter
                     canvasBezierStyle: {
@@ -1825,70 +2086,70 @@
                                     classMinValue: 1001,
                                     classMaxValue: 2500,
                                     symbol: {
-                                        strokeStyle: '#D4B9DA',
+                                        strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
                                         lineCap: 'round',
-                                        shadowColor: '#D4B9DA',
+                                        shadowColor: '#fdd49e',
                                         shadowBlur: 0.6
                                     },
                                 },{
                                     classMinValue: 2501,
                                     classMaxValue: 5000,
                                     symbol: {
-                                        strokeStyle: '#C994C7',
+                                        strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
                                         lineCap: 'round',
-                                        shadowColor: '#C994C7',
+                                        shadowColor: '#fdbb84',
                                         shadowBlur: 0.8
                                         },
                                 },{
                                     classMinValue: 5001,
                                     classMaxValue: 10000,
                                     symbol: {
-                                        strokeStyle: '#DF65B0',
+                                        strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
                                         lineCap: 'round',
-                                        shadowColor: '#DF65B0',
+                                        shadowColor: '#fc8d59',
                                         shadowBlur: 1.0
                                         },
                                 },{
                                     classMinValue: 10001,
                                     classMaxValue: 100000,
                                     symbol: {
-                                        strokeStyle: '#E7298A',
+                                        strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
                                         lineCap: 'round',
-                                        shadowColor: '#E7298A',
+                                        shadowColor: '#ef6548',
                                         shadowBlur: 2.2
                                         },
                                 },{
                                     classMinValue: 100001,
                                     classMaxValue: 500000,
                                     symbol: {
-                                        strokeStyle: '#CE1256',
+                                        strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
                                         lineCap: 'round',
-                                        shadowColor: '#CE1256',
+                                        shadowColor: '#d7301f',
                                         shadowBlur: 2.4
                                         },
                                 },{
                                     classMinValue: 500001,
                                     classMaxValue: 1000000,
                                     symbol: {
-                                        strokeStyle: '#980043',
+                                        strokeStyle: '#b30000',
                                         lineWidth: 2.6,
                                         lineCap: 'round',
-                                        shadowColor: '#980043',
+                                        shadowColor: '#b30000',
                                         shadowBlur: 2.6
                                         },
                                 },{
                                     classMinValue: 1000001,
                                     classMaxValue: 3000000,
                                     symbol: {
-                                        strokeStyle: '#67001F',
+                                        strokeStyle: '#7f0000',
                                         lineWidth: 2.8,
                                         lineCap: 'round',
-                                        shadowColor: '#67001F',
+                                        shadowColor: '#7f0000',
                                         shadowBlur: 2.8
                                         },
                                 },
@@ -1927,9 +2188,9 @@
                     },
                     onEachFeature: function(feature, layer){
                         // var radius = calcRadius(feature.properties.refTotal);
-                        var radius = 3;
-
-                        layer.setRadius(radius);
+                        // var radius = 3;
+                        //
+                        // layer.setRadius(radius);
 
                         // Sidebar mit Daten füllen (jquery)
                         layer.on('click', function(e) {
@@ -1966,62 +2227,122 @@
         };
 
         setTimeout(function(){
-        L.control.layers(baseLayers).addTo(map)
+        L.control.layers(baseLayers, null, {position: 'topleft'}).addTo(map)
             }, 2000)
 
         // Legende erstellen
 
         createLegend();
 
+        // function createLegend() {
+        //     var legend = L.control({position: 'bottomright'});
+        //     legend.onAdd = function(map) {
+        //         var legendContainer = L.DomUtil.create('div', 'legend');
+        //
+        //         var symbolsContainer = L.DomUtil.create('div', 'symbolsContainer');
+        //
+        //         var classes = [1, 501, 1001, 2501, 5001, 10001, 100001, 500001, 1000001];
+        //
+        //         var legendCircle;
+        //
+        //         var lastRadius = 0;
+        //
+        //         var margin;
+        //
+        //         $(legendContainer).append("<h6 id='legendTitle'>Flüchtling</h6>");
+        //
+        //         for (var i = 0; i <= classes.length-1; i++) {
+        //             legendCircle = L.DomUtil.create("div", "legendCircle");
+        //
+        //             currentRadius = getRadius(classes[i]);
+        //
+        //             currentColor = getColor(classes[i]);
+        //
+        //             margin = 2;
+        //
+        //             // $(legendCircle).attr("style", "width: " + currentRadius*2 +
+        //             //                     "px; height: " + currentRadius*2 +
+        //             //                     "px; margin-top: " + margin +
+        //             //                     "px; background: " + currentColor);
+        //
+        //             if (classes[i] == 1000001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + "> " + classes[i] + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 500001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 1000000 "+ "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 100001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 500000" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 10001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 100000" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 5001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 10000" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 2501) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 5000" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 1001) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 2500" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 501) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 1000" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 ">" + classes[i] + "</span>");
+        //             } else if (classes[i] == 1) {
+        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 500" + "</span>");
+        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
+        //                 classes[i] + " - 500" + "</span>");
+        //             }
+        //
+        //             $(symbolsContainer).append('<br>');
+        //             $(symbolsContainer).append(legendCircle);
+        //
+        //         }
+        //
+        //         $(legendContainer).append(symbolsContainer);
+        //
+        //         return legendContainer;
+        //     };
+        //     legend.addTo(map);
+        // }
+
         function createLegend() {
-            var legend = L.control({position: 'bottomright'});
-            legend.onAdd = function(map) {
-                var legendContainer = L.DomUtil.create('div', 'legend');
+        var legend = L.control({
+            position: 'bottomright'
+        });
 
-                var symbolsContainer = L.DomUtil.create('div', 'symbolsContainer');
+        legend.onAdd = function(map) {
+            var legendContainer = L.DomUtil.create('div', 'legend');
 
-                var classes = [4, 10, 20];
+            var classes = [1, 501, 1001, 2501, 5001, 10001, 100001, 500001, 1000001];
+            var labels = [],
+            from, to;
+            //labels.push("<h2 id='legendTitle'>Legende</h2>");
+            labels.push("<h4 id='legendDesc'>Anzahl der Flüchtenden</h4>");
 
-                var legendCircle;
+            for (var i = 0; i < classes.length; i ++) {
+                from = classes[i];
+                to = classes[i+1];
+                labels.push(
+                    '<span style="margin-top:2px; margin-bottom:2px;display: inline-block;"><j style="background:' + getColor(from) + ';width: ' + getRadius(from)*2 + 'px; height:'+ getRadius(from)*2 +'px; "></j> ' +
+                    from + (to ? ' &ndash; ' + (to - 1) : '+') + "</span>"
+                )};
 
-                var lastRadius = 0;
+            legendContainer.innerHTML = labels.join('<br>');
+            return legendContainer;
 
-                var margin;
-
-                $(legendContainer).append("<h6 id='legendTitle'>Flüchtling</h6>");
-
-                for (var i = 0; i <= classes.length-1; i++) {
-                    legendCircle = L.DomUtil.create("div", "legendCircle");
-
-                    currentRadius = calcRadius(classes[i]);
-
-                    margin = - currentRadius - lastRadius - 2;
-
-                    $(legendCircle).attr("style", "width" + currentRadius*2 +
-                                        "px; height: " + currentRadius*2 +
-                                        "px; margin-left" + margin + "px");
-
-                    if (classes[i] == 20) {
-                        $(legendCircle).append("<span class='legendValue'>" + "11 - " + classes[i] + "+" + "</span>");
-                    } else if (classes[i] == 10) {
-                        $(legendCircle).append("<span class='legendValue'>" + "5 - " + classes[i] + "+" + "</span>");
-                    } else if (classes[i] == 4) {
-                        $(legendCircle).append("<span class='legendValue'>" + "0 - " + classes[i] + "+" + "</span>");
-                    }
-
-                    $(symbolsContainer).append(legendCircle);
-
-                    lastRadius = currentRadius;
-
-                }
-
-                $(legendContainer).append(symbolsContainer);
-
-                return legendContainer;
-            };
-            legend.addTo(map);
+        };
+        legend.addTo(map);
         }
-
 
         //Diagrammcontainer erstellen
 
@@ -2031,9 +2352,9 @@
             var info = L.control({position: 'topright'});
             info.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info');
-                div.innerHTML += '<h6> Top 10 Asyl-Länder </h6>';
+                div.innerHTML += '<h4> Top 10 Asyl-Länder </h4>';
                 div.innerHTML += '<canvas id="horBarChart"></canvas>';
-                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>'
+                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>' // buttons, die die displayHorBarChart funktion ausfuehrt
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart1()">2012</button>'
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart2()">2013</button>'
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart3()">2014</button>'
@@ -2047,7 +2368,6 @@
 
             info.addTo(map);
         }
-
 
         // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
         var horBarChart;
