@@ -340,14 +340,14 @@
         // }
 
                 //Farbschema 2
-                return  f >= 1000000 ? '#7f0000' :
-                        f >= 500000 ? '#b30000' :
-                        f >= 100000 ? '#d7301f' :
-                        f >= 10000 ? '#ef6548' :
-                        f >= 5000 ? '#fc8d59' :
-                        f >= 2500 ? '#fdbb84' :
-                        f >= 1000 ? '#fdd49e' :
-                        f >= 500 ? '#fee8c8' :
+                return  f > 1000000 ? '#7f0000' :
+                        f > 500000 ? '#b30000' :
+                        f > 100000 ? '#d7301f' :
+                        f > 10000 ? '#ef6548' :
+                        f > 5000 ? '#fc8d59' :
+                        f > 2500 ? '#fdbb84' :
+                        f > 1000 ? '#fdd49e' :
+                        f > 500 ? '#fee8c8' :
                         f >= 1 ? '#fff7ec' :
                         f = 0 ? '#00000000':
                         f = 'noData' ? '#00000000' :
@@ -452,7 +452,7 @@
                             field: 'refTotal',
                             classBreakInfos: [{
                                         classMinValue: 1,
-                                        classMaxValue: 500,
+                                        classMaxValue: 499,
                                         symbol: {
                                             strokeStyle: '#fff7ec',
                                             lineWidth: 0.2,
@@ -461,8 +461,8 @@
                                             shadowBlur: 0.2
                                         }
                                     }, {
-                                        classMinValue: 501,
-                                        classMaxValue: 1000,
+                                        classMinValue: 500,
+                                        classMaxValue: 999,
                                         symbol: {
                                             strokeStyle: '#fee8c8',
                                             lineWidth: 0.4,
@@ -471,8 +471,8 @@
                                             shadowBlur: 0.4
                                         }
                                     }, {
-                                        classMinValue: 1001,
-                                        classMaxValue: 2500,
+                                        classMinValue: 1000,
+                                        classMaxValue: 2499,
                                         symbol: {
                                             strokeStyle: '#fdd49e',
                                             lineWidth: 0.6,
@@ -481,8 +481,8 @@
                                             shadowBlur: 0.6
                                         },
                                     },{
-                                        classMinValue: 2501,
-                                        classMaxValue: 5000,
+                                        classMinValue: 2500,
+                                        classMaxValue: 4999,
                                         symbol: {
                                             strokeStyle: '#fdbb84',
                                             lineWidth: 0.8,
@@ -491,8 +491,8 @@
                                             shadowBlur: 0.8
                                             },
                                     },{
-                                        classMinValue: 5001,
-                                        classMaxValue: 10000,
+                                        classMinValue: 5000,
+                                        classMaxValue: 9999,
                                         symbol: {
                                             strokeStyle: '#fc8d59',
                                             lineWidth: 1.0,
@@ -501,8 +501,8 @@
                                             shadowBlur: 1.0
                                             },
                                     },{
-                                        classMinValue: 10001,
-                                        classMaxValue: 100000,
+                                        classMinValue: 10000,
+                                        classMaxValue: 99999,
                                         symbol: {
                                             strokeStyle: '#ef6548',
                                             lineWidth: 2.2,
@@ -511,8 +511,8 @@
                                             shadowBlur: 2.2
                                             },
                                     },{
-                                        classMinValue: 100001,
-                                        classMaxValue: 500000,
+                                        classMinValue: 100000,
+                                        classMaxValue: 499999,
                                         symbol: {
                                             strokeStyle: '#d7301f',
                                             lineWidth: 2.4,
@@ -521,8 +521,8 @@
                                             shadowBlur: 2.4
                                             },
                                     },{
-                                        classMinValue: 500001,
-                                        classMaxValue: 1000000,
+                                        classMinValue: 500000,
+                                        classMaxValue: 999999,
                                         symbol: {
                                             strokeStyle: '#b30000',
                                             lineWidth: 2.6,
@@ -531,7 +531,7 @@
                                             shadowBlur: 2.6
                                             },
                                     },{
-                                        classMinValue: 1000001,
+                                        classMinValue: 1000000,
                                         classMaxValue: 3000000,
                                         symbol: {
                                             strokeStyle: '#7f0000',
@@ -544,10 +544,10 @@
                                     ],
                                     defaultSymbol: {
                                     strokeStyle: '#00000000',
-                                        lineWidth: 0.1,
+                                        lineWidth: 0,
                                         lineCap: 'round',
                                         shadowColor: '#00000000',
-                                        shadowBlur: 0.1
+                                        shadowBlur: 0
                                         },
                                     },
                         pathDisplayMode: 'selection',
@@ -684,7 +684,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -693,8 +693,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -703,8 +703,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -713,8 +713,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -723,8 +723,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -733,8 +733,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -743,8 +743,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -753,8 +753,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -763,7 +763,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -908,7 +908,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -917,8 +917,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -927,8 +927,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -937,8 +937,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -947,8 +947,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -957,8 +957,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -967,8 +967,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -977,8 +977,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -987,7 +987,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -1140,7 +1140,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -1149,8 +1149,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -1159,8 +1159,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -1169,8 +1169,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -1179,8 +1179,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -1189,8 +1189,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -1199,8 +1199,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -1209,8 +1209,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -1219,7 +1219,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -1370,7 +1370,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -1379,8 +1379,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -1389,8 +1389,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -1399,8 +1399,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -1409,8 +1409,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -1419,8 +1419,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -1429,8 +1429,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -1439,8 +1439,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -1449,7 +1449,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -1601,7 +1601,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -1610,8 +1610,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -1620,8 +1620,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -1630,8 +1630,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -1640,8 +1640,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -1650,8 +1650,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -1660,8 +1660,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -1670,8 +1670,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -1680,7 +1680,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -1833,7 +1833,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -1842,8 +1842,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -1852,8 +1852,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -1862,8 +1862,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -1872,8 +1872,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -1882,8 +1882,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -1892,8 +1892,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -1902,8 +1902,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -1912,7 +1912,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -2064,7 +2064,7 @@
                         field: 'refTotal',
                         classBreakInfos: [{
                                     classMinValue: 1,
-                                    classMaxValue: 500,
+                                    classMaxValue: 499,
                                     symbol: {
                                         strokeStyle: '#F7F4F9',
                                         lineWidth: 0.2,
@@ -2073,8 +2073,8 @@
                                         shadowBlur: 0.2
                                     }
                                 }, {
-                                    classMinValue: 501,
-                                    classMaxValue: 1000,
+                                    classMinValue: 500,
+                                    classMaxValue: 999,
                                     symbol: {
                                         strokeStyle: '#E7E1EF',
                                         lineWidth: 0.4,
@@ -2083,8 +2083,8 @@
                                         shadowBlur: 0.4
                                     }
                                 }, {
-                                    classMinValue: 1001,
-                                    classMaxValue: 2500,
+                                    classMinValue: 1000,
+                                    classMaxValue: 2499,
                                     symbol: {
                                         strokeStyle: '#fdd49e',
                                         lineWidth: 0.6,
@@ -2093,8 +2093,8 @@
                                         shadowBlur: 0.6
                                     },
                                 },{
-                                    classMinValue: 2501,
-                                    classMaxValue: 5000,
+                                    classMinValue: 2500,
+                                    classMaxValue: 4999,
                                     symbol: {
                                         strokeStyle: '#fdbb84',
                                         lineWidth: 0.8,
@@ -2103,8 +2103,8 @@
                                         shadowBlur: 0.8
                                         },
                                 },{
-                                    classMinValue: 5001,
-                                    classMaxValue: 10000,
+                                    classMinValue: 5000,
+                                    classMaxValue: 9999,
                                     symbol: {
                                         strokeStyle: '#fc8d59',
                                         lineWidth: 1.0,
@@ -2113,8 +2113,8 @@
                                         shadowBlur: 1.0
                                         },
                                 },{
-                                    classMinValue: 10001,
-                                    classMaxValue: 100000,
+                                    classMinValue: 10000,
+                                    classMaxValue: 99999,
                                     symbol: {
                                         strokeStyle: '#ef6548',
                                         lineWidth: 2.2,
@@ -2123,8 +2123,8 @@
                                         shadowBlur: 2.2
                                         },
                                 },{
-                                    classMinValue: 100001,
-                                    classMaxValue: 500000,
+                                    classMinValue: 100000,
+                                    classMaxValue: 499999,
                                     symbol: {
                                         strokeStyle: '#d7301f',
                                         lineWidth: 2.4,
@@ -2133,8 +2133,8 @@
                                         shadowBlur: 2.4
                                         },
                                 },{
-                                    classMinValue: 500001,
-                                    classMaxValue: 1000000,
+                                    classMinValue: 500000,
+                                    classMaxValue: 999999,
                                     symbol: {
                                         strokeStyle: '#b30000',
                                         lineWidth: 2.6,
@@ -2143,7 +2143,7 @@
                                         shadowBlur: 2.6
                                         },
                                 },{
-                                    classMinValue: 1000001,
+                                    classMinValue: 1000000,
                                     classMaxValue: 3000000,
                                     symbol: {
                                         strokeStyle: '#7f0000',
@@ -2227,12 +2227,12 @@
         };
 
         setTimeout(function(){
-        L.control.layers(baseLayers, null, {position: 'topleft'}).addTo(map)
-            }, 2000)
+        L.control.layers(baseLayers, null, {position: 'topleft'}, {collapsed: false}).addTo(map)
+    }, 2000)
 
         // Legende erstellen
 
-        createLegend();
+        //createLegend();
 
         // function createLegend() {
         //     var legend = L.control({position: 'bottomright'});
@@ -2315,34 +2315,54 @@
         //     legend.addTo(map);
         // }
 
-        function createLegend() {
-        var legend = L.control({
-            position: 'bottomright'
-        });
 
-        legend.onAdd = function(map) {
-            var legendContainer = L.DomUtil.create('div', 'legend');
 
-            var classes = [1, 501, 1001, 2501, 5001, 10001, 100001, 500001, 1000001];
-            var labels = [],
-            from, to;
-            //labels.push("<h2 id='legendTitle'>Legende</h2>");
-            labels.push("<h4 id='legendDesc'>Anzahl der Flüchtenden</h4>");
+        // function createLegend() {
+        // var legend = L.control({
+        //     position: 'bottomright'
+        // });
+        //
+        // legend.onAdd = function(map) {
+        //     var legendContainer = L.DomUtil.create('div', 'legend');
+        //
+        //     var classes = [1, 500, 1000, 2500, 5000, 10000, 100000, 500000, 1000000];
+        //     var labels = [],
+        //     from, to;
+        //     //labels.push("<h2 id='legendTitle'>Legende</h2>");
+        //     labels.push("<h4 id='legendDesc'>Anzahl der Flüchtenden</h4>");
+        //
+        //     for (var i = 0; i < classes.length; i ++) {
+        //         from = classes[i];
+        //         to = classes[i+1];
+        //         labels.push(
+        //             '<span style="margin-top:2px; margin-bottom:2px;display: inline-block;"><j style="background:' + getColor(from) + ';width: ' + getRadius(from)*2 + 'px; height:'+ getRadius(from)*2 +'px; "></j> ' +
+        //             from + (to ? ' &ndash; ' + (to - 1) : '+') + "</span>"
+        //         )};
+        //
+        //     legendContainer.innerHTML = labels.join('<br>');
+        //     return legendContainer;
+        //
+        // };
+        // legend.addTo(map);
+        // }
 
-            for (var i = 0; i < classes.length; i ++) {
-                from = classes[i];
-                to = classes[i+1];
-                labels.push(
-                    '<span style="margin-top:2px; margin-bottom:2px;display: inline-block;"><j style="background:' + getColor(from) + ';width: ' + getRadius(from)*2 + 'px; height:'+ getRadius(from)*2 +'px; "></j> ' +
-                    from + (to ? ' &ndash; ' + (to - 1) : '+') + "</span>"
-                )};
+        L.Control.Watermark = L.Control.extend({
+           onAdd: function(map) {
+               var img = L.DomUtil.create('img');
 
-            legendContainer.innerHTML = labels.join('<br>');
-            return legendContainer;
+               img.src = "{% static '/flowmapStatics/legende.png' %}";
+               img.style.width = '250px';
+               img.style.height= '320px';
 
-        };
-        legend.addTo(map);
-        }
+               return img;
+           }
+       });
+
+       L.control.watermark = function(opts) {
+           return new L.Control.Watermark(opts);
+       }
+
+       L.control.watermark({ position: 'bottomright' }).addTo(map);
 
         //Diagrammcontainer erstellen
 
