@@ -12,7 +12,7 @@ var newicon = L.icon({
 //2011
 //Österreich
 var marker1 = L.marker([47.58,14.13],{icon: newicon}).on('click', function () {
-		sidebar.setContent('<p>Österreich</p>'+'<img src=' + at11 + 'height="125%" width="100%"/>'+'<br><i><span style="font-size:12px">Hinweis: Für den Zeitraum von 2011 bis 2013 liegen für Österreich keine registrierten Erstanträge vor.</i></span><br><br>');
+		sidebar.setContent('<p>Österreich</p>'+'<img src=' + at11 + ' height="125%" width="100%"/>'+'<br><i><span style="font-size:12px">Hinweis: Für den Zeitraum von 2011 bis 2013 liegen für Österreich keine registrierten Erstanträge vor.</i></span><br><br>');
 		sidebar.show();
     });
 // Belgien
@@ -63,7 +63,7 @@ var marker10 = L.marker([46.6206,2.4522],{icon: newicon}).on('click', function (
     });
 //Deutschland
 var marker11 = L.marker([51.0871,10.3708],{icon: newicon}).on('click', function () {
-		sidebar.setContent('<p>Deutschland</p>'+'<img src=' + de11 + 'height="125%" width="100%"/>');
+		sidebar.setContent('<p>Deutschland</p>'+'<img src=' + de11 + ' height="125%" width="100%"/>');
 		sidebar.show();
     });
 //Griechenland
