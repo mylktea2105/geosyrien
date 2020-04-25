@@ -171,7 +171,7 @@ def flowmap(request):
 def conflictmap(request):
     return render(
         request,
-        'app/donut.html',
+        'app/donut_neu.html',
         {
             'title': 'conflictmap',
         }
@@ -181,7 +181,7 @@ def conflictmap(request):
 def densitymap(request):
     return render(
         request,
-        'app/choropleth_index001.html',
+        'app/choropleth_index004.html',
         {
             'title': 'mapOfDensity',
         }

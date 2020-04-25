@@ -350,14 +350,25 @@
             weight = 8;
             // c += 'small';
             fill = '#636363';
-        } else if (sum < 1000) {
-            size = 60;
+        } else if (sum < 500) {
+            size = 45;
             weight = 10;
             // c += 'medium';
             fill = '#636363'
-        } else {
-            size = 90;
+        }  else if (sum < 1000) {
+            size = 60;
             weight = 12;
+            // c += 'medium';
+            fill = '#636363'
+        } else if (sum < 10000) {
+            size = 75;
+            weight = 14;
+            // c += 'medium';
+            fill = '#636363'
+        }
+		else {
+            size = 90;
+            weight = 16;
             // c += 'large';
             fill = '#636363'
         }

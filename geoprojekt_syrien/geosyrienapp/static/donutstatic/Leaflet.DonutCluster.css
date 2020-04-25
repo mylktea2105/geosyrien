@@ -3,6 +3,7 @@
 
 .donut-text {
     color: white;
+	font: 12px/14px Arial, Helvetica, sans-serif;
 	font-weight: bold;
     display: block;
     position: absolute;
