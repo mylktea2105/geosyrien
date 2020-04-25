@@ -539,10 +539,10 @@
                                         },
                                     },
                         pathDisplayMode: 'selection',
-                        animationStarted: true,
-                        animationEasingFamily: 'Cubic',
-                        animationEasingType: 'In',
-                        animationDuration: 2000,
+                        // animationStarted: true,
+                        // animationEasingFamily: 'Cubic',
+                        // animationEasingType: 'In',
+                        // animationDuration: 2000,
 
                         pointToLayer: function(feature, latlng) {
                             return L.circleMarker(latlng, {
@@ -771,10 +771,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    // animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -995,10 +995,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    // animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -1457,10 +1457,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    // animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -1688,10 +1688,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    // animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -1920,10 +1920,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    // animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -2151,10 +2151,10 @@
                                     },
                                 },
                     pathDisplayMode: 'selection',
-                    animationStarted: true,
-                    animationEasingFamily: 'Cubic',
-                    animationEasingType: 'In',
-                    animationDuration: 2000,
+                    //animationStarted: true,
+                    // animationEasingFamily: 'Cubic',
+                    // animationEasingType: 'In',
+                    // animationDuration: 2000,
 
                     pointToLayer: function(feature, latlng) {
                         return L.circleMarker(latlng, {
@@ -2215,7 +2215,7 @@
         };
 
         setTimeout(function(){
-        L.control.layers(baseLayers, null, {position: 'topleft'}, {collapsed: false}).addTo(map)
+        L.control.layers(baseLayers, null,{position: 'topleft', collapsed:false}).addTo(map)
     }, 2000)
 
         // Legende erstellen

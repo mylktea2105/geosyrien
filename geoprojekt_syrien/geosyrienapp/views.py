@@ -151,7 +151,7 @@ def layout(request):
 def home(request):
     return render(
         request,
-        'app/index.html',
+        'app/index2.html',
         {
             'title': 'index',
         }
