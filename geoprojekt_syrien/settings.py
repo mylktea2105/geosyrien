@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -137,19 +138,8 @@ STATIC_URL = '/static/'
 # ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
-"""
-LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (38.508, 35,026),
-    'DEFAULT_ZOOM': 10,
-    'MAX_ZOOM': 20,
-    'MIN_ZOOM': 3,
-    'SCALE': 'both',
-    'ATTRIBUTION_PREFIX': 'Powered by HansiHans',
-    'TILES': [('Open Street Map', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {'attribution': '&copy: <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>', 'maxZoom': 20})],
-    'OVERLAYS': [('Suburbs', 'https://citymaps.capetown.gov.za/agsext1/rest/services/Theme_Based/EGISViewer/MapServer/76/query?outFields=*where=1%3D1', {'attribution': '&copy: IGN'}),
-                 ('Dams', 'http://server/a/{z}/{x}/{y}.png', {'attribution': '&copy: IGN'})]
 
-}
-"""
-#print("static_root:", STATIC_ROOT)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
