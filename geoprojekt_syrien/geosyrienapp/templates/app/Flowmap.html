@@ -134,6 +134,11 @@
             color: black;
         }
 
+        .active {
+            background-color: whitesmoke;
+            color: black;
+        }
+
         .leaflet-control-layers {
             /* background: rgba(136, 16, 0, 0.85); */
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -2360,13 +2365,27 @@
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart4()">2015</button>'
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart5()">2016</button>'
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart6()">2017</button>'
-                div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart7()">2018</button>'
-
+                div.innerHTML += '<button class="btn active btn-success" onclick="displayHorBarChart7()">2018</button>'
+                
+                div.id = 'info' // id muss dem document zugewiesen werden, da sonst kein document.getElementById zugriff moeglich
                 return div;
             };
 
             info.addTo(map);
         }
+
+        // aktivstatus der buttons
+        var btnsCont = document.getElementById("info");
+        var btns = btnsCont.getElementsByClassName("btn");
+
+        for (var j = 0; j < btns.length; j++) {
+            btns[j].addEventListener("click", function() {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+        
 
         // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
         var horBarChart;
