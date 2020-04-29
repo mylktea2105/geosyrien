@@ -1,1 +1,1 @@
-web: gunicorn geoprojekt.wsgi
+web: gunicorn geoprojektSyrien.wsgi
