@@ -44,6 +44,7 @@ class refugees2011(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -72,6 +73,7 @@ class refugees2012(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -100,6 +102,7 @@ class refugees2013(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -128,6 +131,7 @@ class refugees2014(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -156,6 +160,7 @@ class refugees2015(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -184,6 +189,7 @@ class refugees2016(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -212,6 +218,7 @@ class refugees2017(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
@@ -240,6 +247,7 @@ class refugees2018(models.Model):
     unknown = models.FloatField(null=True, blank=True)
     erstantrag = models.FloatField(null=True, blank=True)
     folgeantrag = models.FloatField(null=True, blank=True)
+    haltung = models.TextField(null=True, blank=True)
     geom = models.PointField()
 
     def __str__(self):
