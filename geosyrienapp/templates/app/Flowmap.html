@@ -258,58 +258,7 @@
         map.addControl(leftSidebar);
 
 
-        // GeoJSON Dataset laden und als circleMarker visualisieren als Schleife
-
-        // for ( i = 0; i < years.length; i++) {
-        //     var year = years[i]
-        //     geojsonDataset[i] = new L.GeoJSON.AJAX("{% url 'dataset_2011' %}".replace(/\d{4}/,year) , {
-        //         pointToLayer: function(feature, latlng) {
-        //             return L.circleMarker(latlng, {
-        //                 fillcolor: 'teal',
-        //                 color: '#597898',
-        //                 weight: 1,
-        //                 fillOpacity: 0.5,
-        //             }).on({
-        //                 mouseover: function(e){
-        //                     this.setStyle({Color: 'yellow'});
-        //                 },
-        //                 mouseout: function(e){
-        //                     this.setStyle({Color: '#597989'});
-        //                 },
-        //                 click: function(e){
-        //                     leftSidebar.toggle();
-        //                 }
-        //             });
-        //         },
-        //         // auf jedes Feature eine Funktion anwenden
-        //         onEachFeature: function(feature, layer){
-        //             // var radius = calcRadius(feature.properties.refTotal);
-        //             var radius = 3;
-        //
-        //             layer.setRadius(radius);
-        //
-        //             // Sidebar mit Daten füllen (jquery)
-        //             layer.on('click', function(e) {
-        //                 $('.landCont').html(feature.properties.land);
-        //                 $('.populationCont').html(feature.properties.pop);
-        //                 $('.refTotalCont').html(feature.properties.refTotal);
-        //                 $('.maleCont').html(feature.properties.male);
-        //                 $('.femaleCont').html(feature.properties.female);
-        //                 $('.childrenCont').html(feature.properties.u18);
-        //                 $('.adult34Cont').html(feature.properties.u34);
-        //                 $('.adult64Cont').html(feature.properties.u64);
-        //                 $('.rentnerCont').html(feature.properties.ue65);
-        //                 $('.unknownCont').html(feature.properties.unknown);
-        //                 $('.erstantragCont').html(feature.properties.erstantrag);
-        //                 $('.folgeantragCont').html(feature.properties.folgeantrag);
-        //
-        //             });
-        //         }
-        //     });
-        //     baseLayers[year] = geojsonDataset[i]
-            // console.log(baseLayers);
-        // }
-
+        
         // Radiusskalierung berechnen
 
         function calcRadius(refTotal){
