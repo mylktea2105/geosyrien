@@ -448,6 +448,7 @@
                             return {
                               renderer: oneToManyFlowmapLayer,
                               radius: getRadius(geojson.properties.refTotal),
+                              //radius: calcRadius(geojson.properties.refTotal),
                               weight: 0.25,
                               color: getColor(geojson.properties.refTotal),
                               fillColor: getColor(geojson.properties.refTotal),
@@ -643,7 +644,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap1(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer1 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -659,7 +660,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer1, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -668,7 +669,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer1,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -825,18 +826,18 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2012"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2012"] = oneToManyFlowmapLayer1;
+                    oneToManyFlowmapLayer1.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer1.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer1.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer1.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
         };
 
@@ -868,7 +869,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap2(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer2 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -884,7 +885,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer2, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -893,7 +894,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer2,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -1056,19 +1057,19 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2013"] = oneToManyFlowmapLayer;
+                baseLayers["2013"] = oneToManyFlowmapLayer2;
 
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                    oneToManyFlowmapLayer2.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer2.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer2.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer2.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
 
         };
@@ -1101,7 +1102,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap3(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer3 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -1117,7 +1118,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer3, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -1126,7 +1127,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer3,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -1289,18 +1290,18 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2014"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2014"] = oneToManyFlowmapLayer3;
+                    oneToManyFlowmapLayer3.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer3.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer3.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer3.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
         };
 
@@ -1332,7 +1333,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap4(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer4 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -1348,7 +1349,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer4, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -1357,8 +1358,9 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer4,
                           radius: getRadius(geojson.properties.refTotal),
+                          //radius: calcRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
                           fillColor: getColor(geojson.properties.refTotal),
@@ -1520,18 +1522,18 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2015"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2015"] = oneToManyFlowmapLayer4;
+                    oneToManyFlowmapLayer4.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer4.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer4.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer4.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
 
         };
@@ -1564,7 +1566,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap5(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer5 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -1580,7 +1582,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer5, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -1589,7 +1591,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer5,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -1752,18 +1754,18 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2016"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2016"] = oneToManyFlowmapLayer5;
+                    oneToManyFlowmapLayer5.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer5.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer5.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer5.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
 
         };
@@ -1796,7 +1798,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap6(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer6 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -1812,7 +1814,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer6, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -1821,7 +1823,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer6,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -1985,18 +1987,18 @@
                     }
 
                 }).addTo(map);
-                baseLayers["2017"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2017"] = oneToManyFlowmapLayer6;
+                    oneToManyFlowmapLayer6.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer6.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer6.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
                             }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer6.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
         };
 
@@ -2029,7 +2031,7 @@
 
         // Flowmap erstellen und die geladenen JSONs als Input
         function createFlowmap7(geojson) {
-        var oneToManyFlowmapLayer = L.canvasFlowmapLayer(geojson, {
+        var oneToManyFlowmapLayer7 = L.canvasFlowmapLayer(geojson, {
                     originAndDestinationFieldIds: {
                         originUniqueIdField: "origin_id",
                         originGeometry: {
@@ -2045,7 +2047,7 @@
                     style: function(geojson) {
                       if (geojson.properties.isOrigin) {
                         return {
-                          renderer: oneToManyFlowmapLayer, // recommended to use your own L.canvas()
+                          renderer: oneToManyFlowmapLayer7, // recommended to use your own L.canvas()
                           radius: 5,
                           weight: 1,
                           color: 'rgb(195, 255, 62)',
@@ -2054,7 +2056,7 @@
                         };
                       } else {
                         return {
-                          renderer: oneToManyFlowmapLayer,
+                          renderer: oneToManyFlowmapLayer7,
                           radius: getRadius(geojson.properties.refTotal),
                           weight: 0.25,
                           color: getColor(geojson.properties.refTotal),
@@ -2186,9 +2188,9 @@
                             mouseout: function(e){
                                 this.setStyle({Color: '#597989'});
                             },
-                            click: function(e){
-                                leftSidebar.toggle();
-                            }
+                            //click: function(e){
+                              //  leftSidebar.toggle();
+                            //}
                         });
                     },
                     onEachFeature: function(feature, layer){
@@ -2213,22 +2215,24 @@
                             $('.folgeantragCont').html(feature.properties.folgeantrag);
                             $('.politischeHaltung').html(feature.properties.haltung);
 
+                            leftSidebar.toggle();
+                            
                         });
                     }
 
                 }).addTo(map);
-                baseLayers["2018"] = oneToManyFlowmapLayer;
-                    oneToManyFlowmapLayer.on('click', function(e) {
+                baseLayers["2018"] = oneToManyFlowmapLayer7;
+                    oneToManyFlowmapLayer7.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
+                            oneToManyFlowmapLayer7.selectFeaturesForPathDisplay(e.sharedOriginFeatures, 'SELECTION_NEW');
                             }
                         if (e.sharedDestinationFeatures.length) {
-                            oneToManyFlowmapLayer.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
-                            }
+                           oneToManyFlowmapLayer7.selectFeaturesForPathDisplay(e.sharedDestinationFeatures, 'SELECTION_NEW');
+                              }
                         });
                         // immediately select an origin point for Bezier path display,
                         // instead of waiting for the first user click event to fire
-                        oneToManyFlowmapLayer.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
+                        oneToManyFlowmapLayer7.selectFeaturesForPathDisplayById("origin_id", 39, true, 'SELECTION_NEW');
 
         };
 
@@ -2378,7 +2382,7 @@
             var info = L.control({position: 'topright'});
             info.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info');
-                div.innerHTML += '<h4> Top 10 Asyl-Länder </h4>';
+                div.innerHTML += '<h4> Länder mit den höchsten Flüchtlingsaufkommen </h4>';
                 div.innerHTML += '<canvas id="horBarChart"></canvas>';
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>' // buttons, die die displayHorBarChart funktion ausfuehrt
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart1()">2012</button>'
