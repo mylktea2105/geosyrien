@@ -26,7 +26,7 @@ SECRET_KEY = '719x6c%9e*70a9xw=(+s$_3*t18q!$zm6#xux_j@b)4ev%d_a-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -79,12 +79,25 @@ WSGI_APPLICATION = 'geoprojekt_syrien.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'geosyrien',
+#         'USER': 'wsgusers',
+#         'PASSWORD': 'geowsg123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#
+#     }
+# }
+
+# database settings vom neu erstellten dump
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'geosyrien',
-        'USER': 'wsgusers',
-        'PASSWORD': 'geowsg123',
+        'NAME': 'geosyriendb',
+        'USER': 'geoprojektuser',
+        'PASSWORD': 'geoprojektsyrien',
         'HOST': 'localhost',
         'PORT': '5432',
 
@@ -139,7 +152,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
