@@ -156,4 +156,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
+
 django_heroku.settings(locals())
