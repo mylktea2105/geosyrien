@@ -102,7 +102,7 @@
             color: white;
         }
 
-        .info h4 {
+        .info h3 {
             margin: 0 0 5px;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -110,6 +110,16 @@
             text-align: center;
             color: white;
             font-weight: bold;
+        }
+
+        .info h5 {
+        margin: 0 0 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: white;
+        text-align: center;
+        color: white;
+        font-weight: bold;
         }
 
         .info #horBarChart {
@@ -243,7 +253,7 @@
         if (L.Browser.mobile) {
             map.setView([15, -21.95], 2);
         } else {
-            map.setView([54.54, 25.19], 4);
+            map.setView([54.54, 25.19],3);
         }
 
         // Layer erstellen und zur Karte hinzufuegen
@@ -2331,7 +2341,9 @@
             var info = L.control({position: 'topright'});
             info.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info');
-                div.innerHTML += '<h4> Länder mit den höchsten Flüchtlingsaufkommen </h4>';
+                div.innerHTML += '<h3> Länder mit den höchsten Flüchtlingsaufkommen </h3>';
+                div.innerHTML += '<h5> Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </h5>';
+                div.innerHTML += '<h5> Klicke einen Button an, um das Diagramm zu aktualisieren </h5>';
                 div.innerHTML += '<canvas id="horBarChart"></canvas>';
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>' // buttons, die die displayHorBarChart funktion ausfuehrt
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart1()">2012</button>'
