@@ -12,7 +12,7 @@
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3/dist/leaflet.css" /> -->
     <link rel="stylesheet" href="{% static '/flowmapStatics/leaflet.css' %}" />
     <link rel="stylesheet" href="{% static '/flowmapStatics/L.Control.Sidebar.css' %}" />
-    <script src="{% static '/flowmapStatics/map.js' %}"></script>
+
 
     <style>
         body {
@@ -112,14 +112,29 @@
             font-weight: bold;
         }
 
-        .info h5 {
+        .info p {
         margin: 0 0 5px;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 10px;
         color: white;
         text-align: center;
         color: white;
-        font-weight: bold;
+        font: Arial;
+        font-size: 11px;
+        }
+
+        .guide h5 {
+            margin: 0 0 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .guide li {
+        color: white;
+        font: Arial;
+        font-size: 11px;
         }
 
         .info #horBarChart {
@@ -196,7 +211,7 @@
         <b>Erwachsene unter 64:</b>
         <div class="adult64Cont"></div>
         <br>
-        <b>Rentner:</b>
+        <b>Erwachsene über 65:</b>
         <div class="rentnerCont"></div>
         <br>
         <b>Unbekannt:</b>
@@ -221,6 +236,8 @@
     <!-- load Esri Leaflet because we want to use an Esri basemap -->
     <!-- <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script> -->
     <script src="{% static '/flowmapStatics/esri.js' %}"></script>
+    <script src="{% static '/flowmapStatics/map.js' %}"></script>
+    <script src="{% static '/flowmapStatics/leaflet-providers.js' %}"></script>
 
     <!-- <script src="{% static '/flowmapStatics/leaflet-esri.js' %}"></script> -->
 
@@ -257,7 +274,8 @@
         }
 
         // Layer erstellen und zur Karte hinzufuegen
-        L.esri.basemapLayer('DarkGray').addTo(map);
+        //L.esri.basemapLayer('DarkGray').addTo(map);
+        L.tileLayer.provider('Stadia.AlidadeSmoothDark').addTo(map);
 
         // Sidebar erstellen
 
@@ -558,7 +576,7 @@
                             });
                         }
 
-                    }).addTo(map);
+                    });
                     baseLayers["2011"] = oneToManyFlowmapLayer;
                         oneToManyFlowmapLayer.on('click', function(e) {
                             if (e.sharedOriginFeatures.length) {
@@ -784,7 +802,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2012"] = oneToManyFlowmapLayer1;
                     oneToManyFlowmapLayer1.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
@@ -1015,7 +1033,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2013"] = oneToManyFlowmapLayer2;
 
                     oneToManyFlowmapLayer2.on('click', function(e) {
@@ -1248,7 +1266,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2014"] = oneToManyFlowmapLayer3;
                     oneToManyFlowmapLayer3.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
@@ -1480,7 +1498,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2015"] = oneToManyFlowmapLayer4;
                     oneToManyFlowmapLayer4.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
@@ -1712,7 +1730,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2016"] = oneToManyFlowmapLayer5;
                     oneToManyFlowmapLayer5.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
@@ -1945,7 +1963,7 @@
                         });
                     }
 
-                }).addTo(map);
+                });
                 baseLayers["2017"] = oneToManyFlowmapLayer6;
                     oneToManyFlowmapLayer6.on('click', function(e) {
                         if (e.sharedOriginFeatures.length) {
@@ -2196,7 +2214,7 @@
         };
 
         setTimeout(function(){
-        L.control.layers(baseLayers, null,{position: 'topleft', collapsed:false}).addTo(map)
+        L.control.layers(baseLayers, null,{position: 'topleft', collapsed:false, }).addTo(map)
     }, 2500)
 
         // Legende erstellen
@@ -2342,8 +2360,9 @@
             info.onAdd = function(map) {
                 var div = L.DomUtil.create('div', 'info');
                 div.innerHTML += '<h3> Länder mit den höchsten Flüchtlingsaufkommen </h3>';
-                div.innerHTML += '<h5> Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </h5>';
-                div.innerHTML += '<h5> Klicke einen Button an, um das Diagramm zu aktualisieren </h5>';
+                //div.innerHTML += '<p> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </p>';
+                //div.innerHTML += '<p> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</p>';
+                //div.innerHTML += '<p>Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
                 div.innerHTML += '<canvas id="horBarChart"></canvas>';
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart()">2011</button>' // buttons, die die displayHorBarChart funktion ausfuehrt
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart1()">2012</button>'
@@ -2373,6 +2392,22 @@
             });
         }
         
+        userGuide();
+        function userGuide() {
+            var guide = L.control({position: 'topleft'});
+            guide.onAdd = function(map) {
+                var guide = L.DomUtil.create('div', 'guide');
+                guide.innerHTML += '<h5> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </h5>';
+                //guide.innerHTML += '<p> - Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
+                guide.innerHTML += '<h5> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</h5>';
+                guide.innerHTML += '<ul><li>Die Sidebar zeigt Länderinformationen an</li></ul>';
+                guide.innerHTML += '<h5> 3. Klicke einen Button an, um das Diagramm zu aktualisieren </h5>';
+                
+                return guide;
+            };
+
+            guide.addTo(map);
+        }
 
         // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
         var horBarChart;
