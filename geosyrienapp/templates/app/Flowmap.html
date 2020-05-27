@@ -268,6 +268,7 @@
             0% { opacity:0; }
             100% { opacity:100%; }
         }
+        
         @-webkit-keyframes pulse {
             0% {
                 -webkit-box-shadow: 0 0 0 0 rgba(254, 42, 105, 0.6);
@@ -395,7 +396,7 @@
 
         // Layer erstellen und zur Karte hinzufuegen
         //L.esri.basemapLayer('DarkGray').addTo(map);
-        L.tileLayer.provider('Stadia.AlidadeSmoothDark').addTo(map);
+        L.tileLayer.provider('Stamen.Watercolor').addTo(map);
 
         // Sidebar erstellen
 
