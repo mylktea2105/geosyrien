@@ -110,6 +110,8 @@
             text-align: center;
             color: white;
             font-weight: bold;
+            font-size: 18px;
+            font: Arial;
         }
 
         .info p {
@@ -123,12 +125,13 @@
         font-size: 11px;
         }
 
-        .guide h5 {
+        .guide p {
             margin: 0 0 5px;
             margin-top: 20px;
             margin-bottom: 10px;
             color: white;
-            font-weight: bold;
+            font-weight: bold
+            font-size: 11px;
         }
 
         .guide li {
@@ -176,6 +179,119 @@
             color: white;
             background-color: #888283;
             font: 16px/18px Arial, Helvetica, sans-serif;
+        }
+
+        .help-tip{
+            top: -55px;
+            left: 50px;
+            text-align: center;
+            background-color: #fe2a69;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            line-height: 26px;
+            cursor: default;
+            z-index: 2000;
+            box-shadow: 0 0 0 rgba(254, 42, 105, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        .help-tip:before{
+            content:'?';
+            font-weight: bold;
+            color:#fff;
+        }
+
+        .help-tip:hover {
+            animation: none;
+        }
+
+        .help-tip:hover p{
+            display:block;
+            transform-origin: 100% 0%;
+
+            -webkit-animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
+
+        }
+
+        .help-tip p{
+            display: none;
+            text-align: left;
+            background-color: #1E2021;
+            padding: 20px;
+            width: 300px;
+            position: absolute;
+            border-radius: 3px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            right: -4px;
+            left: 105%;
+            color: #FFF;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .help-tip p:before{
+            position: absolute;
+            content: '';
+            width:0;
+            height: 0;
+            border:6px solid transparent;
+            border-bottom-color:#1E2021;
+            right:10px;
+            top:-12px;
+        }
+
+        .help-tip p:after{
+            width:100%;
+            height:40px;
+            content:'';
+            position: absolute;
+            top:-40px;
+            left:0;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% { 
+                opacity:0; 
+                transform: scale(0.6);
+            }
+
+            100% {
+                opacity:100%;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity:0; }
+            100% { opacity:100%; }
+        }
+        @-webkit-keyframes pulse {
+            0% {
+                -webkit-box-shadow: 0 0 0 0 rgba(254, 42, 105, 0.6);
+            }
+            70% {
+                -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+            }
+            100% {
+                -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+            }
+        }
+        @keyframes pulse {
+            0% {
+                -moz-box-shadow: 0 0 0 0 rgba(254, 42, 105, 0.6);
+                box-shadow: 0 0 0 0 rgba(254, 42, 105, 0.6);
+            }
+            70% {
+                -moz-box-shadow: 0 0 0 20px rgba(254, 42, 105, 0);
+                box-shadow: 0 0 0 20px rgba(254, 42, 105, 0);
+            }
+            100% {
+                -moz-box-shadow: 0 0 0 0 rgba(254, 42, 105, 0);
+                box-shadow: 0 0 0 0 rgba(254, 42, 105, 0);
+            }
         }
     </style>
 
@@ -226,8 +342,14 @@
         <b>Politische Haltung:</b>
         <div class="politischeHaltung"></div>
     </div>
+ 
+ {% comment %} <div class="help-tip">
+    <p>1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren <br> <br> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br> 3. Klicke einen Button an, um das Diagramm zu aktualisieren</p>
+</div> {% endcomment %}
 
     <div id="map"></div>
+
+
 
     <!-- first load LeafletJS -->
     <!-- <script src="https://unpkg.com/leaflet@1.3/dist/leaflet.js"></script> -->
@@ -312,19 +434,6 @@
         }
 
         function getColor(f){
-        //     return  f > 1000001 ? '#7f0000' :
-        //             f > 500001 ? '#b30000' :
-        //             f > 100001 ? '#d7301f' :
-        //             f > 10001 ? '#ef6548' :
-        //             f > 5001 ? '#fc8d59' :
-        //             f > 2501 ? '#fdbb84' :
-        //             f > 1001 ? '#fdd49e' :
-        //             f > 501 ? '#E7E1EF' :
-        //             f > 1 ? '#F7F4F9' :
-        //             f = 'noData' ? '#00000000' :
-        //                     '#00000000' ;
-        // }
-
                 //Farbschema 2
                 return  f > 1000000 ? '#7f0000' :
                         f > 500000 ? '#b30000' :
@@ -339,33 +448,6 @@
                         f = 'noData' ? '#00000000' :
                                 '#00000000' ;
             }
-            //     //Farbschema 3 nicht
-            //     return  f > 1000001 ? '#67000d' :
-            //             f > 500001 ? '#a50f15' :
-            //             f > 100001 ? '#cb181d' :
-            //             f > 10001 ? '#ef3b2c' :
-            //             f > 5001 ? '#fb6a4a' :
-            //             f > 2501 ? '#fc9272' :
-            //             f > 1001 ? '#fcbba1' :
-            //             f > 501 ? '#fee0d2' :
-            //             f > 1 ? '#fff5f0' :
-            //             f = 'noData' ? '#00000000' :
-            //                     '#00000000' ;
-            // }
-            //     //Farbschema 1 nicht
-            //     return  f > 1000001 ? '#800026' :
-            //             f > 500001 ? '#bd0026' :
-            //             f > 100001 ? '#e31a1c' :
-            //             f > 10001 ? '#fc4e2a' :
-            //             f > 5001 ? '#fd8d3c' :
-            //             f > 2501 ? '#feb24c' :
-            //             f > 1001 ? '#fed976' :
-            //             f > 501 ? '#ffeda0' :
-            //             f > 1 ? '#ffffcc' :
-            //             f = 'noData' ? '#00000000' :
-            //                     '#00000000' ;
-            // }
-
 
         var baseLayers = {};
 
@@ -2219,91 +2301,6 @@
 
         // Legende erstellen
 
-        //createLegend();
-
-        // function createLegend() {
-        //     var legend = L.control({position: 'bottomright'});
-        //     legend.onAdd = function(map) {
-        //         var legendContainer = L.DomUtil.create('div', 'legend');
-        //
-        //         var symbolsContainer = L.DomUtil.create('div', 'symbolsContainer');
-        //
-        //         var classes = [1, 501, 1001, 2501, 5001, 10001, 100001, 500001, 1000001];
-        //
-        //         var legendCircle;
-        //
-        //         var lastRadius = 0;
-        //
-        //         var margin;
-        //
-        //         $(legendContainer).append("<h6 id='legendTitle'>Flüchtling</h6>");
-        //
-        //         for (var i = 0; i <= classes.length-1; i++) {
-        //             legendCircle = L.DomUtil.create("div", "legendCircle");
-        //
-        //             currentRadius = getRadius(classes[i]);
-        //
-        //             currentColor = getColor(classes[i]);
-        //
-        //             margin = 2;
-        //
-        //             // $(legendCircle).attr("style", "width: " + currentRadius*2 +
-        //             //                     "px; height: " + currentRadius*2 +
-        //             //                     "px; margin-top: " + margin +
-        //             //                     "px; background: " + currentColor);
-        //
-        //             if (classes[i] == 1000001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + "> " + classes[i] + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 500001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 1000000 "+ "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 100001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 500000" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 10001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 100000" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 5001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 10000" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 2501) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 5000" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 1001) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 2500" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 501) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 1000" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 ">" + classes[i] + "</span>");
-        //             } else if (classes[i] == 1) {
-        //                 //$(legendCircle).append("<span class='legendValue'>" + classes[i] + " - 500" + "</span>");
-        //                 $(legendCircle).append('<span style="margin-bottom:2px;display: inline-block;"><j style="background:' + currentColor + '; width: ' + currentRadius*2 + 'px; height:'+ currentRadius*2 +'px; "></j> ' +
-        //                 classes[i] + " - 500" + "</span>");
-        //             }
-        //
-        //             $(symbolsContainer).append('<br>');
-        //             $(symbolsContainer).append(legendCircle);
-        //
-        //         }
-        //
-        //         $(legendContainer).append(symbolsContainer);
-        //
-        //         return legendContainer;
-        //     };
-        //     legend.addTo(map);
-        // }
-
-
-
         // function createLegend() {
         // var legend = L.control({
         //     position: 'bottomright'
@@ -2391,23 +2388,36 @@
                 this.className += " active";
             });
         }
-        
+
         userGuide();
         function userGuide() {
             var guide = L.control({position: 'topleft'});
             guide.onAdd = function(map) {
-                var guide = L.DomUtil.create('div', 'guide');
-                guide.innerHTML += '<h5> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </h5>';
-                //guide.innerHTML += '<p> - Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
-                guide.innerHTML += '<h5> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</h5>';
-                guide.innerHTML += '<ul><li>Die Sidebar zeigt Länderinformationen an</li></ul>';
-                guide.innerHTML += '<h5> 3. Klicke einen Button an, um das Diagramm zu aktualisieren </h5>';
-                
+                var guide = L.DomUtil.create('div', 'help-tip');
+                guide.innerHTML += '<p> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren <br> <br> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br> 3. Klicke einen Button an, um das Diagramm zu aktualisieren</p>';
+
                 return guide;
             };
 
             guide.addTo(map);
         }
+{% comment %} 
+        userGuide();
+        function userGuide() {
+            var guide = L.control({position: 'bottomleft'});
+            guide.onAdd = function(map) {
+                var guide = L.DomUtil.create('div', 'guide');
+                guide.innerHTML += '<p> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </p>';
+                //guide.innerHTML += '<p> - Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
+                guide.innerHTML += '<p> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</p>';
+                guide.innerHTML += '<ul><li>Die Sidebar zeigt Länderinformationen an</li></ul>';
+                guide.innerHTML += '<p> 3. Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
+                
+                return guide;
+            };
+
+            guide.addTo(map);
+        } {% endcomment %}
 
         // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
         var horBarChart;
