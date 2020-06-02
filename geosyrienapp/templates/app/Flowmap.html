@@ -253,8 +253,8 @@
         }
 
         @-webkit-keyframes fadeIn {
-            0% { 
-                opacity:0; 
+            0% {
+                opacity:0;
                 transform: scale(0.6);
             }
 
@@ -268,7 +268,7 @@
             0% { opacity:0; }
             100% { opacity:100%; }
         }
-        
+
         @-webkit-keyframes pulse {
             0% {
                 -webkit-box-shadow: 0 0 0 0 rgba(254, 42, 105, 0.6);
@@ -343,7 +343,7 @@
         <b>Politische Haltung:</b>
         <div class="politischeHaltung"></div>
     </div>
- 
+
  {% comment %} <div class="help-tip">
     <p>1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren <br> <br> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br> 3. Klicke einen Button an, um das Diagramm zu aktualisieren</p>
 </div> {% endcomment %}
@@ -407,7 +407,7 @@
         map.addControl(leftSidebar);
 
 
-        
+
         // Radiusskalierung berechnen
 
         function calcRadius(refTotal){
@@ -2274,7 +2274,7 @@
                             $('.politischeHaltung').html(feature.properties.haltung);
 
                             leftSidebar.toggle();
-                            
+
                         });
                     }
 
@@ -2368,7 +2368,7 @@
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart5()">2016</button>'
                 div.innerHTML += '<button class="btn btn-success" onclick="displayHorBarChart6()">2017</button>'
                 div.innerHTML += '<button class="btn active btn-success" onclick="displayHorBarChart7()">2018</button>'
-                
+
                 div.id = 'info' // id muss dem document zugewiesen werden, da sonst kein document.getElementById zugriff moeglich
                 return div;
             };
@@ -2400,7 +2400,7 @@
 
             guide.addTo(map);
         }
-{% comment %} 
+{% comment %}
         userGuide();
         function userGuide() {
             var guide = L.control({position: 'bottomleft'});
@@ -2411,7 +2411,7 @@
                 guide.innerHTML += '<p> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</p>';
                 guide.innerHTML += '<ul><li>Die Sidebar zeigt Länderinformationen an</li></ul>';
                 guide.innerHTML += '<p> 3. Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
-                
+
                 return guide;
             };
 
