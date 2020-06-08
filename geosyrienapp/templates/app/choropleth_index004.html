@@ -21,6 +21,8 @@
 
     <!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script> -->
     <script src="{% static '/choro/leaflet.js' %}"></script>
+    <script src="{% static '/flowmapStatics/leaflet-providers.js' %}"></script>
+
 
     <!-- <script src="https://unpkg.com/esri-leaflet@2.1/dist/esri-leaflet.js"></script> -->
     <script src="{% static '/choro/esri-leaflet.js' %}"></script>
@@ -106,7 +108,8 @@
     <script type="text/javascript">
         var map = L.map('map').setView([54.54, 25.19], 4);
 
-        L.esri.basemapLayer('DarkGray').addTo(map);
+        //L.esri.basemapLayer('DarkGray').addTo(map);
+        L.tileLayer.provider('Stadia.AlidadeSmoothDark').addTo(map);
 
         var sidebar = L.control.sidebar('sidebar', {
             position: 'left'
@@ -154,7 +157,9 @@
             return new L.Control.Watermark(opts);
         }
 
-        L.control.watermark({position: 'bottomright'}).addTo(map);
+        L.control.watermark({
+            position: 'bottomright'
+        }).addTo(map);
 
         userGuide();
 
@@ -343,7 +348,9 @@
         };
 
 
-		L.control.layers(baseLayers,null,{collapsed:false}).addTo(map);
+        L.control.layers(baseLayers, null, {
+            collapsed: false
+        }).addTo(map);
         //L.control.layers(baseLayers).addTo(map);
     </script>
 
