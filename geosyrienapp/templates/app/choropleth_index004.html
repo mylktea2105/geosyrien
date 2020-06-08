@@ -109,7 +109,9 @@
         var map = L.map('map').setView([54.54, 25.19], 4);
 
         //L.esri.basemapLayer('DarkGray').addTo(map);
-        L.tileLayer.provider('Stadia.AlidadeSmoothDark').addTo(map);
+        L.tileLayer.provider('Jawg.Dark', {
+            accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+        }).addTo(map);
 
         var sidebar = L.control.sidebar('sidebar', {
             position: 'left'

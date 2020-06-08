@@ -301,7 +301,8 @@
 <body>
     <div id="sidebar-left">
 	<b><span style="font-size:20px">Information*</span></b>
-	<p><span style="font-size:12px">*Quelle: EUROSTAT </span></p>
+	<p><span style="font-size:12px">*Quelle: EUROSTAT für europäische Länder / UNHCR für Libanon, Irak, Türkei, Israel, Ägypten, Jordanien </span></p>
+    <!-- <p><span style="font-size:12px"></span></p> -->
         <br>
 
         <b>Land:</b>
@@ -396,7 +397,9 @@
 
         // Layer erstellen und zur Karte hinzufuegen
         //L.esri.basemapLayer('DarkGray').addTo(map);
-        L.tileLayer.provider('Stadia.AlidadeSmoothDark').addTo(map);
+        L.tileLayer.provider('Jawg.Dark', {
+            accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+        }).addTo(map);
 
         // Sidebar erstellen
 
