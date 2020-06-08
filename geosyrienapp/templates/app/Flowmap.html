@@ -300,8 +300,8 @@
 
 <body>
     <div id="sidebar-left">
-	<b><span style="font-size:20px">Information*</span></b>
-	<p><span style="font-size:12px">*Quelle: EUROSTAT für europäische Länder / UNHCR für Libanon, Irak, Türkei, Israel, Ägypten, Jordanien </span></p>
+	<b><span style="font-size:20px">Information</span></b>
+	<p><span style="font-size:12px">Quelle: EUROSTAT für europäische Länder / *UNHCR für Libanon, Irak, Türkei, Israel, Ägypten, Jordanien </span></p>
     <!-- <p><span style="font-size:12px"></span></p> -->
         <br>
 
@@ -320,16 +320,16 @@
         <b>Weiblich:</b>
         <div class="femaleCont"></div>
         <br>
-        <b>Kinder unter 18:</b>
+        <b>Kinder unter 18</b>
         <div class="childrenCont"></div>
         <br>
-        <b>Erwachsene unter 34:</b>
+        <b>Erwachsene unter 34 / Erwachsene unter 60*:</b>
         <div class="adult34Cont"></div>
         <br>
         <b>Erwachsene unter 64:</b>
         <div class="adult64Cont"></div>
         <br>
-        <b>Erwachsene über 65:</b>
+        <b>Erwachsene über 65 / Erwachsene über 60*:</b>
         <div class="rentnerCont"></div>
         <br>
         <b>Unbekannt:</b>
@@ -344,10 +344,6 @@
         <b>Politische Haltung:</b>
         <div class="politischeHaltung"></div>
     </div>
-
- {% comment %} <div class="help-tip">
-    <p>1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren <br> <br> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br> 3. Klicke einen Button an, um das Diagramm zu aktualisieren</p>
-</div> {% endcomment %}
 
     <div id="map"></div>
 
@@ -655,7 +651,6 @@
                                 $('.erstantragCont').html(feature.properties.erstantrag);
                                 $('.folgeantragCont').html(feature.properties.folgeantrag);
                                 $('.politischeHaltung').html(feature.properties.haltung);
-
 
                             });
                         }
