@@ -239,16 +239,19 @@ h1, h2, h3, h4, h5,
   .ul-check.primary li:before {
     color: #2f89fc; }
 
+
+
 /* Navbar */
 .site-navbar {
   margin-bottom: 0px;
   z-index: 1999;
-  position: relative;
+  position: fixed;
   width: 100%;
   background: #fff; }
   .site-navbar .site-navigation.border-bottom {
     border-bottom: 1px solid #f3f3f4 !important; }
   .site-navbar .site-navigation .site-menu {
+    position: sticky;
     margin-bottom: 0; }
     .site-navbar .site-navigation .site-menu .active > a {
       color: #2f89fc; }
@@ -355,6 +358,11 @@ h1, h2, h3, h4, h5,
           margin-top: 0px;
           visibility: visible;
           opacity: 1; }
+
+          .sticky {
+            position: -webkit-sticky;
+            position: sticky;
+          }
 
 .site-mobile-menu {
   width: 300px;
