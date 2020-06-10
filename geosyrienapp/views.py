@@ -138,16 +138,6 @@ def top10_u18_2018(request):
     return HttpResponse(df_top10_rows_json, content_type='json')
 
 
-def layout(request):
-    return render(
-        request,
-        'app/layout.html',
-        {
-            'title': 'layout',
-        }
-    )
-
-
 def home(request):
     return render(
         request,
@@ -157,6 +147,14 @@ def home(request):
         }
     )
 
+def impressum(request):
+    return render(
+        request,
+        'app/impressum.html',
+        {
+            'title': 'impressum',
+        }
+    )
 
 def flowmap(request):
     return render(
