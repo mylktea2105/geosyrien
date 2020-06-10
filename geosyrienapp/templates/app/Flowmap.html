@@ -2399,23 +2399,6 @@
             guide.addTo(map);
         }
 
-        userGuide();
-        function userGuide() {
-            var guide = L.control({position: 'bottomleft'});
-            guide.onAdd = function(map) {
-                var guide = L.DomUtil.create('div', 'guide');
-                guide.innerHTML += '<p> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren </p>';
-                //guide.innerHTML += '<p> - Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
-                guide.innerHTML += '<p> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.</p>';
-                guide.innerHTML += '<ul><li>Die Sidebar zeigt Länderinformationen an</li></ul>';
-                guide.innerHTML += '<p> 3. Klicke einen Button an, um das Diagramm zu aktualisieren </p>';
-
-                return guide;
-            };
-
-            guide.addTo(map);
-        } {% endcomment %}
-
         // Diagramme erstellen: die funktionen werden mit den buttons verlinkt
         var horBarChart;
 
