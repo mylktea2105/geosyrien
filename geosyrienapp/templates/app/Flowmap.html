@@ -34,63 +34,6 @@
             text-align: justify;
         }
 
-        .legend {
-            text-align: left;
-            margin-right: 8px;
-            line-height: 18px;
-            color: whitesmoke;
-            padding: 6px 10px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
-            background: rgba(0, 0, 0, 0);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0);
-            border-radius: 5px;
-
-        }
-
-        .legend j {
-            border-radius: 50%;
-            max-height: auto;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-
-        #legendTitle {
-        text-align: center;
-        margin-bottom: 1px;
-        color: whitesmoke;
-        font-weight: bold;
-        }
-
-        #legendDesc {
-            text-align: center;
-            margin-bottom: 3px;
-            color: whitesmoke;
-            font-weight: bold;
-        }
-
-        .symbolsContainer {
-            float: left;
-            margin-left: 30px;
-        }
-
-        .legendCircle {
-            border-radius: 50%;
-            opacity: 0.7;
-            display: inline-block;
-            margin-bottom: 0.2px;
-
-        }
-
-        .legendValue {
-            position: absolute;
-            right: 10px;
-            color: whitesmoke;
-            font-size: 10pt;
-            text-align: center;
-            font-weight: bold;
-        }
-
         .info {
             width: 32vw;
             height: 40vh;
@@ -378,6 +321,10 @@
     <script src="{% static '/js/L.Control.Sidebar.js'%}"></script>
     <script src="{% static '/js/leaflet-button.js'%}"></script>
 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet'/>
+    <script src="https://unpkg.com/mapbox-gl-leaflet/leaflet-mapbox-gl.js"></script>
+
 
     <script>
 
@@ -393,9 +340,17 @@
 
         // Layer erstellen und zur Karte hinzufuegen
         //L.esri.basemapLayer('DarkGray').addTo(map);
-        L.tileLayer.provider('Jawg.Dark', {
-            accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+
+        var token ="pk.eyJ1IjoiYmlnbWFjYm9vYnkiLCJhIjoiY2pvc213em52MDBmaDNrdW5sbjg1YXgwbSJ9.n1ujaAy1AOPd76Lmlg-v_g"; // replace with your Mapbox API Access token. Create a Mapbox account and find it on https://account.mapbox.com/
+
+        var gl = L.mapboxGL({
+            accessToken: token,
+            style: 'mapbox://styles/bigmacbooby/ckbgl6a2i296k1io6n8yc1imk'
         }).addTo(map);
+
+        //L.tileLayer.provider('Jawg.Dark', {
+        //    accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+        //}).addTo(map);
 
         // Sidebar erstellen
 
@@ -2391,7 +2346,7 @@
             var guide = L.control({position: 'topleft'});
             guide.onAdd = function(map) {
                 var guide = L.DomUtil.create('div', 'help-tip');
-                guide.innerHTML += '<p> 1. Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren <br> <br> 2. Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br> 3. Klicke einen Button an, um das Diagramm zu aktualisieren</p>';
+                guide.innerHTML += '<p>Wähle links eine Jahreszahl aus, um den Flowmap-Layer zu aktualisieren<br> <br>Klicke auf einen Zielpunkt auf der Karte, um die Sidebar einzublenden.<br><br>Klicke einen Button an, um das Diagramm zu aktualisieren</p>';
 
                 return guide;
             };
@@ -2442,7 +2397,7 @@
                     data: {
                         labels: label_array,
                         datasets: [{
-                            label: 'Fluechtlingszahl',
+                            label: 'Flüchtlingszahl',
                             backgroundColor: "rgba(0, 128, 128, 0.9)",
                             borderColor: "rgba(0, 128, 128, 0.9)",
                             data: data_array
@@ -2522,7 +2477,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2601,7 +2556,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2680,7 +2635,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2759,7 +2714,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2838,7 +2793,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2917,7 +2872,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array
@@ -2996,7 +2951,7 @@
                         data: {
                             labels: label_array,
                             datasets: [{
-                                label: 'Fluechtlingszahl',
+                                label: 'Flüchtlingszahl',
                                 backgroundColor: "rgba(0, 128, 128, 0.9)",
                                 borderColor: "rgba(0, 128, 128, 0.9)",
                                 data: data_array

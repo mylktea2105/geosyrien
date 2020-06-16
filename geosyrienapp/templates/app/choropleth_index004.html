@@ -102,16 +102,27 @@
     <!-- <script type="text/javascript" src="sidebar.js"></script> -->
     <script src="{% static '/choro/sidebar.js' %}"></script>
 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet'/>
+    <script src="https://unpkg.com/mapbox-gl-leaflet/leaflet-mapbox-gl.js"></script>
+
 
 
 
     <script type="text/javascript">
         var map = L.map('map').setView([54.54, 25.19], 4);
 
-        //L.esri.basemapLayer('DarkGray').addTo(map);
-        L.tileLayer.provider('Jawg.Dark', {
-            accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+        var token ="pk.eyJ1IjoiYmlnbWFjYm9vYnkiLCJhIjoiY2pvc213em52MDBmaDNrdW5sbjg1YXgwbSJ9.n1ujaAy1AOPd76Lmlg-v_g"; // replace with your Mapbox API Access token. Create a Mapbox account and find it on https://account.mapbox.com/
+
+        var gl = L.mapboxGL({
+            accessToken: token,
+            style: 'mapbox://styles/bigmacbooby/ckbgl6a2i296k1io6n8yc1imk'
         }).addTo(map);
+
+        //L.esri.basemapLayer('DarkGray').addTo(map);
+        //L.tileLayer.provider('Jawg.Dark', {
+        //    accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
+        //}).addTo(map);
 
         var sidebar = L.control.sidebar('sidebar', {
             position: 'left'
