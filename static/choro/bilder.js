@@ -69,7 +69,7 @@ var dk17 = '/static/choro/Diagramme/Dänemark/dk2017.jpg'
 var dk18 = '/static/choro/Diagramme/Dänemark/dk2018.jpg'
 
 //Estland
-var est1118 = '/static/choro/Diagramme/Estland/est_201118.jpg'
+var est1118 = '/static/choro/Diagramme/Estland/est201118.jpg'
 
 //Finnland
 var fin11 = '/static/choro/Diagramme/Finnland/fin2011.jpg'
@@ -151,7 +151,7 @@ var let1118 = '/static/choro/Diagramme/Lettland/let201118.jpg'
 var lie1118 = '/static/choro/Diagramme/Liechtenstein/lie201118.jpg'
 
 //Litauen
-var lit1118 = '/static/choro/Diagramme/Litauen/lit_201118.jpg'
+var lit1118 = '/static/choro/Diagramme/Litauen/lit201118.jpg'
 
 //Luxemburg
 var lux11 = '/static/choro/Diagramme/Luxemburg/lux2011.jpg'

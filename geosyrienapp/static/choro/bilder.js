@@ -68,7 +68,7 @@ var dk17 = '/static/choro/Diagramme/Dänemark/dk2017.jpg'
 var dk18 = '/static/choro/Diagramme/Dänemark/dk2018.jpg'
 
 //Estland
-var est1118 = '/static/choro/Diagramme/Estland/est_201118.jpg'
+var est1118 = '/static/choro/Diagramme/Estland/est201118.jpg'
 
 //Finnland
 var fin11 = '/static/choro/Diagramme/Finnland/fin2011.jpg'
