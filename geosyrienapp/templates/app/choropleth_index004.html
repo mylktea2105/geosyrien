@@ -13,7 +13,7 @@
 
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/> -->
     <link rel="stylesheet" href="{% static '/choro/leaflet.css' %}" />
-    <link rel="stylesheet" href="{% static '/donutstatic/style1.css' %}" />
+    <link rel="stylesheet" href="{% static '/choro/style1.css' %}" />
 
 
     <!-- <link rel="stylesheet" href="sidebar.css" /> -->
@@ -52,36 +52,35 @@
     </style>
 
     <style>
-        .info {
-            padding: 6px 8px;
-            font: 18px/24px Arial, Helvetica, sans-serif;
-            color: white;
-        }
+    .info { 
+        padding: 6px 8px; 
+        font: 11px, Arial, Helvetica, sans-serif; 
+        color: white; 
+    } 
+    
+    .info h4 { 
+        margin: 0 0 5px; 
+        color: white; 
+        font: 16px, Arial, bold;}
 
-        .info h4 {
-            margin: 0 0 5px;
-            color: white;
-        }
-
-        .legend {
-            text-align: left;
-            line-height: 18px;
-            color: white;
-        }
-
-        .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.8;
-        }
-
-        .leaflet-control-layers-expanded {
-            color: white;
-            background-color: #888283;
-            font: 16px/18px Arial, Helvetica, sans-serif;
-        }
+    .legend { 
+        text-align: left; 
+        line-height: 18px; 
+        color: white; 
+    } 
+    
+    .legend i {
+        width: 18px; 
+        height: 18px; 
+        float: left; 
+        margin-right: 8px; 
+        opacity: 0.8; } 
+    
+    .leaflet-control-layers-expanded {
+        color: white; 
+        background-color: #888283; 
+        font: 16px/18px Arial, Helvetica, sans-serif;
+    }
     </style>
 
 </head>
