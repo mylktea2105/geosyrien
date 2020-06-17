@@ -173,197 +173,194 @@
             position: 'bottomright'
         }).addTo(map);
 
-        userGuide();
+        	
+userGuide();
+		function userGuide(){
+			var guide = L.control({position:'topleft'});
+			guide.onAdd = function(map){
+				var guide = L.DomUtil.create('div','help-tip');
+				guide.innerHTML+='<p>1. Wähle aus dem rechten Menü ein Jahr<br>2. Halte die Maus über einen Staat zur Anzeige der Flüchtlingsverteilung<br>3. Klicke auf ein Diagramm und lasse dir in der Sidebar weitere Informationen anzeigen</p>'
+		return guide;
+		};
+		guide.addTo(map);
+		}	
+    
+    // definiere farben der staaten basierend auf den dichten 
+	function getColor(d) {
+		console.log(d);
+		return 	d >= 1000 ? '#7f2704' :
+				d >= 500 ? '#a63603' :
+				d >= 100 ? '#d94801' :
+				d >= 50 ? '#f16913' :
+				d >= 25 ? '#fd8d3c' :
+				d >= 10 ? '#fdae6b' :
+				d >= 5 ? '#fdd0a2' :
+                d >= 1 ? '#fee6ce':
+                d >= 0 ? '#fff5eb':
+				d = 'noData' ? '#BDBDBD':
+				'#e30b0b';
+	}
 
-        function userGuide() {
-            var guide = L.control({
-                position: 'topleft'
-            });
-            guide.onAdd = function(map) {
-                var guide = L.DomUtil.create('div', 'help-tip');
-                guide.innerHTML +=
-                    '<p>1. Wähle aus dem rechten Menü ein Jahr<br>2. Halte die Maus über einen Staat zur Anzeige der Flüchtlingsverteilung<br>3. Klicke auf ein Diagramm und lasse dir in der Sidebar weitere Informationen anzeigen</p>'
-                return guide;
-            };
-            guide.addTo(map);
-        }
+	function style(feature,property) {
+		console.log("style:");
+		console.log(feature);
+		console.log(property);
+		return {
+			weight: 1.5,
+			opacity: 1,
+			color: 'gray',
+			dashArray: '0',
+			fillOpacity: 0.8,
+			fillColor: getColor(feature.properties[property])
+		};
+	}
+	
+    function highlightFeature(e,property) {
+		var layer = e.target;
 
-        // definiere farben der staaten basierend auf den dichten
-        function getColor(d) {
-            return d >= 1000 ? '#7f2704' :
-                d >= 500 ? '#a63603' :
-                d >= 100 ? '#d94801' :
-                d >= 50 ? '#f16913' :
-                d >= 25 ? '#fd8d3c' :
-                d >= 10 ? '#fdae6b' :
-                d >= 5 ? '#fdd0a2' :
-                d >= 1 ? '#fee6ce' :
-                d >= 0 ? '#fff5eb' :
-                d = 'noData' ? '#BDBDBD' :
-                '#e30b0b';
-        }
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '0',
+			fillOpacity: 0.8
+		});
 
-        function style(feature, property) {
-            return {
-                weight: 1.5,
-                opacity: 1,
-                color: 'gray',
-                dashArray: '0',
-                fillOpacity: 0.8,
-                fillColor: getColor(feature.properties[property])
-            };
-        }
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
 
-        function highlightFeature(e, property) {
-            var layer = e.target;
+		info.update(layer.feature.properties,property);
+	}
 
-            layer.setStyle({
-                weight: 5,
-                color: '#666',
-                dashArray: '0',
-                fillOpacity: 0.8
-            });
+	var geojson = [];
+	var baseLayers = {};
 
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
+	function resetHighlight(e,i) {
+		console.log(i);
+		console.log(geojson[i].options.style);
+		console.log(e.target);
+		geojson[i].resetStyle(e.target);
+		info.update();
+	}
 
-            info.update(layer.feature.properties, property);
-        }
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
 
-        var geojson = [];
-        var baseLayers = {};
+	function onEachFeature(feature, layer, i, property) {
+		layer.on({
+			mouseover: function(e){highlightFeature(e,property)},
+			mouseout: function(e){resetHighlight(e,i)},
+			click: zoomToFeature
+		});
+	}
+ 
+ 
+	geojson[0] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2011")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 0,"dichte2011")}
+	});
+	//baseLayers["2011"]=geojson[0];
+	
+    geojson[1] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2012")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 1,"dichte2012")}
+	});
+	//baseLayers["2012"]=geojson[1];
+	
+    geojson[2] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2013")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 2,"dichte2013")}
+	});
+	//baseLayers["2013"]=geojson[2];
+	
+    geojson[3] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2014")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 3,"dichte2014")}
+	});
+	//baseLayers["2014"]=geojson[3];
+	
+    geojson[4] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2015")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 4,"dichte2015")}
+	});
+	//baseLayers["2015"]=geojson[4];
+	
+    geojson[5] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2016")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 5,"dichte2016")}
+	});
+	//baseLayers["2016"]=geojson[5];
+	
+    geojson[6] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2017")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 6,"dichte2017")}
+	});
+	//baseLayers["2017"]=geojson[6];
+	
+    geojson[7] = L.geoJson(nationData, {
+		style: function(feature){return style(feature,"dichte2018")},
+		onEachFeature: function(feature, layer){return onEachFeature(feature, layer, 7,"dichte2018")}
+	});
+	//baseLayers["2018"]=geojson[7];
+	
+	
+	/*var legend = L.control({position: 'bottomright'});
 
-        function resetHighlight(e, i) {
-            geojson[i].resetStyle(e.target);
-            info.update();
-        }
+	legend.onAdd = function (map) {
 
-        function zoomToFeature(e) {
-            map.fitBounds(e.target.getBounds());
-        }
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 1, 5, 10, 25, 50, 100, 500, 1000],
+			labels = [],
+			from, to;
+		labels.push('<h4 style="text-align:center">Legende</h4>');
+		labels.push('<span style="margin-top:2px; margin-bottom:2px;display: inline-block;">Geflüchtete pro 10.000 Einwohner</span><br>');
+		for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+			console.log(from+" "+to+" "+getColor(from));
+			labels.push(
+				'<span style="margin-top:2px; margin-bottom:2px;display: inline-block;"><i style="background:' + getColor(from) + '; "></i> ' +
+				from + (to ? ' &ndash; ' + (to-0.01) : '+')+"</span>");
+		}
+		
+		labels.push(
+				'<span style="margin-top:2px; margin-bottom:2px;display: inline-block;"><i style="background:' + getColor("noData") + ';"></i> ' +
+				"keine Daten vorhanden</span>");
 
-        function onEachFeature(feature, layer, i, property) {
-            layer.on({
-                mouseover: function(e) {
-                    highlightFeature(e, property)
-                },
-                mouseout: function(e) {
-                    resetHighlight(e, i)
-                },
-                click: zoomToFeature
-            });
-        }
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
 
-
-        geojson[0] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2011")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 0, "dichte2011")
-            }
-        }).addTo(map);
-        //baseLayers["2011"]=geojson[0];
-
-        geojson[1] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2012")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 1, "dichte2012")
-            }
-        });
-        //baseLayers["2012"]=geojson[1];
-
-        geojson[2] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2013")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 2, "dichte2013")
-            }
-        });
-        baseLayers["2013"] = geojson[2];
-
-        geojson[3] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2014")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 3, "dichte2014")
-            }
-        });
-        //baseLayers["2014"]=geojson[3];
-
-        geojson[4] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2015")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 4, "dichte2015")
-            }
-        });
-        //baseLayers["2015"]=geojson[4];
-
-        geojson[5] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2016")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 5, "dichte2016")
-            }
-        });
-        //baseLayers["2016"]=geojson[5];
-
-        geojson[6] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2017")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 6, "dichte2017")
-            }
-        });
-        //baseLayers["2017"]=geojson[6];
-
-        geojson[7] = L.geoJson(nationData, {
-            style: function(feature) {
-                return style(feature, "dichte2018")
-            },
-            onEachFeature: function(feature, layer) {
-                return onEachFeature(feature, layer, 7, "dichte2018")
-            }
-        });
-        //baseLayers["2018"]=geojson[7];
-
-        //legend.addTo(map);
-        var test1 = L.layerGroup([b2011, geojson[0]]);
-        var test2 = L.layerGroup([b2012, geojson[1]]);
-        var test3 = L.layerGroup([b2013, geojson[2]]);
-        var test4 = L.layerGroup([b2014, geojson[3]]);
-        var test5 = L.layerGroup([b2015, geojson[4]]);
-        var test6 = L.layerGroup([b2016, geojson[5]]);
-        var test7 = L.layerGroup([b2017, geojson[6]]);
-        var test8 = L.layerGroup([b2018, geojson[7]]).addTo(map);
-
-        // Erstellung der Baselayercontrol
-        var baseLayers = {
-            "2018": test8,
-            "2017": test7,
-            "2016": test6,
-            "2015": test5,
-            "2014": test4,
-            "2013": test3,
-            "2012": test2,
-            "2011": test1
-
-        };
-
-
-        L.control.layers(baseLayers, null, {
-            collapsed: false
-        }).addTo(map);
-        //L.control.layers(baseLayers).addTo(map);
+	legend.addTo(map);*/
+	var test1 = L.layerGroup([b2011, geojson[0]]);
+	var test2 = L.layerGroup([b2012, geojson[1]]);
+	var test3 = L.layerGroup([b2013, geojson[2]]);
+	var test4 = L.layerGroup([b2014, geojson[3]]);
+	var test5 = L.layerGroup([b2015, geojson[4]]);
+	var test6 = L.layerGroup([b2016, geojson[5]]);
+	var test7 = L.layerGroup([b2017, geojson[6]]);
+	var test8 = L.layerGroup([b2018, geojson[7]]).addTo(map);
+	
+	// Erstellung der Baselayercontrol 
+	var baseLayers = {
+		"2018": test8,
+		"2017": test7,
+		"2016": test6,
+		"2015": test5,
+		"2014": test4,
+		"2013": test3,
+		"2012": test2,
+		"2011": test1
+		
+	};
+	
+	
+	L.control.layers(baseLayers,null,{collapsed:false}).addTo(map);
+    //L.control.layers(baseLayers).addTo(map);
+	
+	
+    
     </script>
 
 
