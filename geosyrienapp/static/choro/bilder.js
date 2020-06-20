@@ -150,7 +150,7 @@ var let1118 = '/static/choro/Diagramme/Lettland/let201118.jpg height="auto" widt
 var lie1118 = '/static/choro/Diagramme/Liechtenstein/lie201118.jpg height="auto" width="100%"'
 
 //Litauen
-var lit1118 = '/static/choro/Diagramme/Litauen/lit_201118.jpg height="auto" width="100%"'
+var lit1118 = '/static/choro/Diagramme/Litauen/lit201118.jpg height="auto" width="100%"'
 
 //Luxemburg
 var lux11 = '/static/choro/Diagramme/Luxemburg/lux2011.jpg height="auto" width="100%"'
