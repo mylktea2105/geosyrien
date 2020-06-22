@@ -341,14 +341,14 @@
         // Layer erstellen und zur Karte hinzufuegen
         //L.esri.basemapLayer('DarkGray').addTo(map);
 
-        var token ="pk.eyJ1IjoiYmlnbWFjYm9vYnkiLCJhIjoiY2pvc213em52MDBmaDNrdW5sbjg1YXgwbSJ9.n1ujaAy1AOPd76Lmlg-v_g"; // replace with your Mapbox API Access token. Create a Mapbox account and find it on https://account.mapbox.com/
+        //var token ="pk.eyJ1IjoiYmlnbWFjYm9vYnkiLCJhIjoiY2pvc213em52MDBmaDNrdW5sbjg1YXgwbSJ9.n1ujaAy1AOPd76Lmlg-v_g"; // replace with your Mapbox API Access token. Create a Mapbox account and find it on https://account.mapbox.com/
 
-        var gl = L.mapboxGL({
-            accessToken: token,
-            style: 'mapbox://styles/bigmacbooby/ckbgl6a2i296k1io6n8yc1imk'
-        }).addTo(map);
+        //var gl = L.mapboxGL({
+        //    accessToken: token,
+        //    style: 'mapbox://styles/bigmacbooby/ckbgl6a2i296k1io6n8yc1imk'
+        //}).addTo(map);
 
-        //L.tileLayer.provider('Jawg.Dark', {
+        L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
         //    accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
         //}).addTo(map);
 

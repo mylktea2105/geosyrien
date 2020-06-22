@@ -111,17 +111,8 @@
     <script type="text/javascript">
         var map = L.map('map').setView([54.54, 25.19], 4);
 
-        var token ="pk.eyJ1IjoiYmlnbWFjYm9vYnkiLCJhIjoiY2pvc213em52MDBmaDNrdW5sbjg1YXgwbSJ9.n1ujaAy1AOPd76Lmlg-v_g"; // replace with your Mapbox API Access token. Create a Mapbox account and find it on https://account.mapbox.com/
-
-        var gl = L.mapboxGL({
-            accessToken: token,
-            style: 'mapbox://styles/bigmacbooby/ckbgl6a2i296k1io6n8yc1imk'
-        }).addTo(map);
-
         //L.esri.basemapLayer('DarkGray').addTo(map);
-        //L.tileLayer.provider('Jawg.Dark', {
-        //    accessToken: 'hlScCdCFoFgJlLvaPQQSKnaXyvbqPhdkF1Xz6WGPBQPndTFsyzWysuCFWAC9wU3k'
-        //}).addTo(map);
+        L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
 
         var sidebar = L.control.sidebar('sidebar', {
             position: 'left'
