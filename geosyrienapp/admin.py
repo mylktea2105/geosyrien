@@ -1,33 +1,25 @@
 from django.contrib import admin
-from django.contrib.gis.geos import Point
-from datetime import datetime
 from leaflet.admin import LeafletGeoAdmin
-import pandas as pd
-from pandas import ExcelWriter
-from pandas import ExcelFile
 
-from geosyrienapp.models import WaterConsumption
-from geosyrienapp.models import refugees2011, refugees2012, refugees2013, refugees2014, refugees2015, refugees2016, refugees2017, refugees2018
+from geosyrienapp.models import * # Refugees2011, Refugees2012, Refugees2013 etc.
 
-# Register your models here.
-
-# Fuellen der im models.py erstellten Tabelle
-
-
-class WaterConsumptionAdmin(LeafletGeoAdmin):
-    pass
-
-
+# shows leaflet map on admin page
 class refAdmin(LeafletGeoAdmin):
     pass
 
+# register admin site for models
 
-admin.site.register(WaterConsumption, WaterConsumptionAdmin)
-admin.site.register(refugees2011, refAdmin)
-admin.site.register(refugees2012, refAdmin)
-admin.site.register(refugees2013, refAdmin)
-admin.site.register(refugees2014, refAdmin)
-admin.site.register(refugees2015, refAdmin)
-admin.site.register(refugees2016, refAdmin)
-admin.site.register(refugees2017, refAdmin)
-admin.site.register(refugees2018, refAdmin)
+# create list of moduls from geosyrienapp.models
+modul_list = [
+    Refugees2011, 
+    Refugees2012, 
+    Refugees2013, 
+    Refugees2014, 
+    Refugees2015, 
+    Refugees2016,
+    Refugees2017,
+    Refugees2018
+]
+
+# iterating with list comprehension to register / create admin sites for models
+admin_sites = [admin.site.register(model, refAdmin) for model in modul_list]

@@ -12,19 +12,24 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import django_heroku
 import os
 import posixpath
+import dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Add .env variables anywhere before SECRET_KEY
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '719x6c%9e*70a9xw=(+s$_3*t18q!$zm6#xux_j@b)4ev%d_a-'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,28 +84,15 @@ WSGI_APPLICATION = 'geoprojekt_syrien.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#         'NAME': 'geosyrien',
-#         'USER': 'wsgusers',
-#         'PASSWORD': 'geowsg123',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#
-#     }
-# }
-
-# database settings vom neu erstellten dump
+# database settings from sql dump
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'geosyriendb',
-        'USER': 'geoprojektuser',
-        'PASSWORD': 'geoprojektsyrien',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASS'],
         'HOST': 'localhost',
         'PORT': '5432',
-
     }
 }
 
@@ -146,10 +138,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIR = [
-#     os.path.join(BASE_DIR, 'geosyrienapp/static')
-# ]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -157,4 +145,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
 django_heroku.settings(locals())
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis' # set database engine for usage with heroku

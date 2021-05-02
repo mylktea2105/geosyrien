@@ -3,29 +3,10 @@ from django.contrib.gis.db import models
 
 # Create your models here.
 
-# So soll die Tabelle der Datenbank aussehen
+# Tables in database will look like this
 
-
-class WaterConsumption(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    Suburb = models.CharField(max_length=100)
-    NoOfSingleResProp = models.IntegerField()
-    AvgMonthlyKL = models.IntegerField()
-    AvgMonthlyKLPredicted = models.IntegerField()
-    PredictionAccuracy = models.IntegerField()
-    Month = models.CharField(max_length=50)
-    Year = models.IntegerField()
-    DateTime = models.DateTimeField()
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.Suburb
-
-    class Meta:
-        verbose_name_plural = 'WaterConsumption'
-
-
-class refugees2011(models.Model):
+# create parent class
+class RefugeesParent(models.Model):
     Id = models.IntegerField(primary_key=True)
     land = models.CharField(max_length=100)
     pop = models.FloatField(null=True, blank=True)
@@ -51,207 +32,38 @@ class refugees2011(models.Model):
         return self.land
 
     class Meta:
-        verbose_name_plural = 'refugees2011'
+        abstract = True
 
+# create child classes by inherenting attributes from parent class
 
-class refugees2012(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2011(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2012'
+        verbose_name_plural = 'Refugees2011'
 
-
-class refugees2013(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2012(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2013'
+        verbose_name_plural = 'Refugees2012'
 
-
-class refugees2014(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2013(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2014'
+        verbose_name_plural = 'Refugees2013'
 
-
-class refugees2015(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2014(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2015'
+        verbose_name_plural = 'Refugees2014'
 
-
-class refugees2016(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2015(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2016'
+        verbose_name_plural = 'Refugees2015'
 
-
-class refugees2017(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2016(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2017'
+        verbose_name_plural = 'Refugees2016'
 
-
-class refugees2018(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    land = models.CharField(max_length=100)
-    pop = models.FloatField(null=True, blank=True)
-    refRatio = models.FloatField(null=True, blank=True)
-    refTotal = models.FloatField(null=True, blank=True)
-    male = models.FloatField(null=True, blank=True)
-    female = models.FloatField(null=True, blank=True)
-    u18 = models.FloatField(null=True, blank=True)
-    u18erstantrag = models.FloatField(null=True, blank=True)
-    u34 = models.FloatField(null=True, blank=True)
-    u34erstantrag = models.FloatField(null=True, blank=True)
-    u64 = models.FloatField(null=True, blank=True)
-    u64erstantrag = models.FloatField(null=True, blank=True)
-    ue65 = models.FloatField(null=True, blank=True)
-    ue65erstantrag = models.FloatField(null=True, blank=True)
-    unknown = models.FloatField(null=True, blank=True)
-    erstantrag = models.FloatField(null=True, blank=True)
-    folgeantrag = models.FloatField(null=True, blank=True)
-    haltung = models.TextField(null=True, blank=True)
-    geom = models.PointField()
-
-    def __str__(self):
-        return self.land
-
+class Refugees2017(RefugeesParent):
     class Meta:
-        verbose_name_plural = 'refugees2018'
+        verbose_name_plural = 'Refugees2017'
+
+class Refugees2018(RefugeesParent):
+    class Meta:
+        verbose_name_plural = 'Refugees2018'

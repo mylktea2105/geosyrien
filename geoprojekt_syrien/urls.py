@@ -44,6 +44,5 @@ urlpatterns = [
     path('top10_ref2016/', top10_ref2016, name='top10_2016'),
     path('top10_ref2017/', top10_ref2017, name='top10_2017'),
     path('top10_ref2018/', top10_ref2018, name='top10_2018'),
-    path('top10_u18_2018/', top10_u18_2018, name='top10_u18_2018'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

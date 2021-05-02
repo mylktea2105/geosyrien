@@ -1,17 +1,5 @@
-# Mac
-.DS_Store
-
-__pycache__
-
-*.pyc
-
 .env
-
-2011.xlsx
-2012.xlsx
-2013.xlsx
-2014.xlsx
-2015.xlsx
-2016.xlsx
-2017.xlsx
-2018.xlsx
+dataset.xlsx
+project_env
+.ipynb_checkpoints
+Untitled.ipynb
